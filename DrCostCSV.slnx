@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Application.Contracts/Application.Contracts.csproj" Id="b6567c8c-a5af-4694-bdc7-7ca4db20423e" />
+  <Project Path="Application/Application.csproj" Id="55b317a8-33e3-4c94-8b09-57a617320b5e" />
+  <Project Path="Domain/Domain.csproj" Id="09d5c120-5d3c-40b7-a402-ca85e8029f29" />
+  <Project Path="DrCostCSV/DrCostCSV.csproj" />
+  <Project Path="Persistence/Persistence.csproj" Id="86f812b7-3908-4073-aeab-a2ac86aa380d" />
+  <Project Path="Presenter/Presenter.csproj" />
+</Solution>
