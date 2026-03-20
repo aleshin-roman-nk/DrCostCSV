@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DrCostCSV.UI.Model
+namespace DrCostCSV.ViewModels
 {
 	public class DailyExpenseRowViewModel
 	{
