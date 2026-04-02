@@ -1,3 +1,4 @@
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DrCostCSV
@@ -14,9 +15,15 @@ namespace DrCostCSV
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
 
+			const string connectionString = "Data Source=family_economy.db";
+
+			var services = new ServiceCollection();
+
 
 
 			Application.Run(new MainForm());
 		}
 	}
+
+
 }

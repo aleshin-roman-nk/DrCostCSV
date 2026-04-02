@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Domain
+namespace Domain;
+
+public class ExpenseDocument
 {
-	public class ExpenseDocument
+	public int Id { get; private set; }
+	public string SellerName { get; private set; }
+	public DateOnly Date { get; private set; }
+	public List<ExpenseDocumentItem> Items = new();
+
+	public ExpenseDocument(int id, string sellerName, DateOnly date)
 	{
-		public int id {  get; set; }
-		public string? SellerName { get; set; }
-		public DateOnly Date {  get; set; }
-		public IReadOnlyList<ExpenseDocumentItem>? ExpenseDocumentItem {  get; set; }
+		Id = id;
+		SellerName = sellerName;
+		Date = date;
 	}
 }
