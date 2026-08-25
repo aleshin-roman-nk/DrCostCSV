@@ -11,8 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ExpenseDocuments\Commands\DeleteExpenseDocument\" />
-    <Folder Include="ExpenseDocuments\Commands\UpdateExpenseDocument\" />
+    <Folder Include="ExpenseDocuments\DeleteExpenseDocument\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.11" />
   </ItemGroup>
 
 </Project>
