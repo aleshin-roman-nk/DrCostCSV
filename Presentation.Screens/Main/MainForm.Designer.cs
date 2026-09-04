@@ -29,19 +29,23 @@
 		private void InitializeComponent()
 		{
 			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-			DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
 			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
 			dataGridView1 = new DataGridView();
 			ColumnDate = new DataGridViewTextBoxColumn();
 			ColumnSum = new DataGridViewTextBoxColumn();
-			dateTimePicker1 = new DateTimePicker();
-			panel1 = new Panel();
-			buttonQuickDocumentAdd = new Button();
 			panel2 = new Panel();
 			splitContainer1 = new SplitContainer();
 			richTextBoxReport = new RichTextBox();
+			menuStrip1 = new MenuStrip();
+			labelPeriod = new ToolStripLabel();
+			comboBoxMonth = new ToolStripComboBox();
+			comboBoxYear = new ToolStripComboBox();
+			settingsToolStripMenuItem = new ToolStripMenuItem();
+			databasePathToolStripMenuItem = new ToolStripMenuItem();
+			buttonQuickDocumentAdd = new ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-			panel1.SuspendLayout();
 			panel2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
@@ -54,36 +58,49 @@
 			dataGridView1.AllowUserToAddRows = false;
 			dataGridView1.AllowUserToDeleteRows = false;
 			dataGridView1.AllowUserToResizeRows = false;
+			dataGridView1.BackgroundColor = Color.FromArgb(234, 234, 224);
+			dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 			dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = SystemColors.Control;
-			dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
-			dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle1.BackColor = Color.FromArgb(220, 220, 220);
+			dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+			dataGridViewCellStyle1.ForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle1.Padding = new Padding(4, 0, 4, 0);
+			dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(220, 220, 220);
+			dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
 			dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
 			dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridView1.ColumnHeadersHeight = 27;
+			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ColumnDate, ColumnSum });
-			dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = SystemColors.Window;
-			dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F);
-			dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-			dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-			dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = Color.FromArgb(234, 234, 224);
+			dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
+			dataGridViewCellStyle4.ForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle4.Padding = new Padding(4, 0, 4, 0);
+			dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(177, 212, 224);
+			dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+			dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
 			dataGridView1.Dock = DockStyle.Fill;
+			dataGridView1.EnableHeadersVisualStyles = false;
+			dataGridView1.GridColor = Color.FromArgb(29, 198, 144);
 			dataGridView1.Location = new Point(0, 0);
+			dataGridView1.MultiSelect = false;
 			dataGridView1.Name = "dataGridView1";
+			dataGridView1.ReadOnly = true;
 			dataGridView1.RowHeadersVisible = false;
+			dataGridView1.RowTemplate.Height = 24;
 			dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dataGridView1.Size = new Size(511, 463);
+			dataGridView1.ShowCellToolTips = false;
+			dataGridView1.Size = new Size(558, 566);
 			dataGridView1.TabIndex = 1;
 			dataGridView1.KeyDown += dataGridView1_KeyDown;
 			// 
 			// ColumnDate
 			// 
 			ColumnDate.DataPropertyName = "Date";
+			dataGridViewCellStyle2.Format = "dd.MM.yyyy";
+			ColumnDate.DefaultCellStyle = dataGridViewCellStyle2;
 			ColumnDate.HeaderText = "Date";
 			ColumnDate.Name = "ColumnDate";
 			ColumnDate.ReadOnly = true;
@@ -92,100 +109,122 @@
 			// ColumnSum
 			// 
 			ColumnSum.DataPropertyName = "TotalSum";
-			dataGridViewCellStyle2.Format = "N2";
-			dataGridViewCellStyle2.NullValue = null;
-			ColumnSum.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle3.Format = "N2";
+			dataGridViewCellStyle3.NullValue = null;
+			ColumnSum.DefaultCellStyle = dataGridViewCellStyle3;
 			ColumnSum.HeaderText = "Sum";
 			ColumnSum.Name = "ColumnSum";
 			ColumnSum.ReadOnly = true;
 			ColumnSum.Width = 300;
 			// 
-			// dateTimePicker1
-			// 
-			dateTimePicker1.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
-			dateTimePicker1.Location = new Point(3, 3);
-			dateTimePicker1.Name = "dateTimePicker1";
-			dateTimePicker1.Size = new Size(200, 35);
-			dateTimePicker1.TabIndex = 0;
-			dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
-			// 
-			// panel1
-			// 
-			panel1.BackColor = Color.FromArgb(192, 192, 255);
-			panel1.Controls.Add(buttonQuickDocumentAdd);
-			panel1.Controls.Add(dateTimePicker1);
-			panel1.Dock = DockStyle.Top;
-			panel1.Location = new Point(4, 4);
-			panel1.Name = "panel1";
-			panel1.Size = new Size(1022, 94);
-			panel1.TabIndex = 3;
-			// 
-			// buttonQuickDocumentAdd
-			// 
-			buttonQuickDocumentAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			buttonQuickDocumentAdd.BackColor = Color.FromArgb(128, 255, 128);
-			buttonQuickDocumentAdd.FlatStyle = FlatStyle.Flat;
-			buttonQuickDocumentAdd.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-			buttonQuickDocumentAdd.Location = new Point(974, 3);
-			buttonQuickDocumentAdd.Name = "buttonQuickDocumentAdd";
-			buttonQuickDocumentAdd.Size = new Size(45, 35);
-			buttonQuickDocumentAdd.TabIndex = 1;
-			buttonQuickDocumentAdd.Text = "+";
-			buttonQuickDocumentAdd.UseVisualStyleBackColor = false;
-			buttonQuickDocumentAdd.Click += buttonQuickDocumentAdd_Click;
-			// 
 			// panel2
 			// 
-			panel2.BackColor = Color.FromArgb(192, 255, 255);
+			panel2.BackColor = Color.FromArgb(234, 234, 224);
 			panel2.Controls.Add(splitContainer1);
 			panel2.Dock = DockStyle.Fill;
-			panel2.Location = new Point(4, 98);
+			panel2.Location = new Point(4, 28);
 			panel2.Name = "panel2";
-			panel2.Size = new Size(1022, 463);
+			panel2.Size = new Size(1116, 584);
 			panel2.TabIndex = 4;
 			// 
 			// splitContainer1
 			// 
+			splitContainer1.BackColor = Color.FromArgb(220, 220, 220);
 			splitContainer1.Dock = DockStyle.Fill;
 			splitContainer1.Location = new Point(0, 0);
 			splitContainer1.Name = "splitContainer1";
 			// 
 			// splitContainer1.Panel1
 			// 
+			splitContainer1.Panel1.BackColor = Color.FromArgb(234, 234, 224);
 			splitContainer1.Panel1.Controls.Add(dataGridView1);
 			// 
 			// splitContainer1.Panel2
 			// 
+			splitContainer1.Panel2.BackColor = Color.FromArgb(234, 234, 224);
 			splitContainer1.Panel2.Controls.Add(richTextBoxReport);
-			splitContainer1.Size = new Size(1022, 463);
-			splitContainer1.SplitterDistance = 511;
+			splitContainer1.Size = new Size(1116, 584);
+			splitContainer1.SplitterDistance = 558;
 			splitContainer1.TabIndex = 2;
 			// 
 			// richTextBoxReport
 			// 
+			richTextBoxReport.BackColor = Color.FromArgb(234, 234, 224);
 			richTextBoxReport.BorderStyle = BorderStyle.FixedSingle;
 			richTextBoxReport.Dock = DockStyle.Fill;
 			richTextBoxReport.Font = new Font("Consolas", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			richTextBoxReport.ForeColor = Color.FromArgb(24, 38, 36);
 			richTextBoxReport.Location = new Point(0, 0);
 			richTextBoxReport.Name = "richTextBoxReport";
 			richTextBoxReport.ReadOnly = true;
-			richTextBoxReport.Size = new Size(507, 463);
+			richTextBoxReport.Size = new Size(554, 566);
 			richTextBoxReport.TabIndex = 0;
 			richTextBoxReport.Text = "";
 			// 
+			// menuStrip1
+			//
+			menuStrip1.BackColor = Color.FromArgb(234, 234, 224);
+			menuStrip1.Items.AddRange(new ToolStripItem[] { labelPeriod, comboBoxMonth, comboBoxYear, settingsToolStripMenuItem, buttonQuickDocumentAdd });
+			menuStrip1.Location = new Point(0, 0);
+			menuStrip1.Name = "menuStrip1";
+			menuStrip1.Size = new Size(1124, 24);
+			menuStrip1.TabIndex = 2;
+			menuStrip1.Text = "menuStrip1";
+			//
+			// labelPeriod
+			//
+			labelPeriod.Name = "labelPeriod";
+			labelPeriod.Text = "Период:";
+			//
+			// comboBoxMonth
+			//
+			comboBoxMonth.DropDownStyle = ComboBoxStyle.DropDownList;
+			comboBoxMonth.Name = "comboBoxMonth";
+			comboBoxMonth.Size = new Size(130, 24);
+			comboBoxMonth.SelectedIndexChanged += comboBoxPeriod_SelectedIndexChanged;
+			//
+			// comboBoxYear
+			//
+			comboBoxYear.DropDownStyle = ComboBoxStyle.DropDownList;
+			comboBoxYear.Name = "comboBoxYear";
+			comboBoxYear.Size = new Size(75, 24);
+			comboBoxYear.SelectedIndexChanged += comboBoxPeriod_SelectedIndexChanged;
+			//
+			// settingsToolStripMenuItem
+			//
+			settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { databasePathToolStripMenuItem });
+			settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+			settingsToolStripMenuItem.Text = "Настройки";
+			//
+			// databasePathToolStripMenuItem
+			//
+			databasePathToolStripMenuItem.Name = "databasePathToolStripMenuItem";
+			databasePathToolStripMenuItem.Text = "Папка базы данных...";
+			databasePathToolStripMenuItem.Click += databasePathToolStripMenuItem_Click;
+			// buttonQuickDocumentAdd
+			//
+			buttonQuickDocumentAdd.Alignment = ToolStripItemAlignment.Right;
+			buttonQuickDocumentAdd.DisplayStyle = ToolStripItemDisplayStyle.Text;
+			buttonQuickDocumentAdd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			buttonQuickDocumentAdd.Name = "buttonQuickDocumentAdd";
+			buttonQuickDocumentAdd.Text = "+";
+			buttonQuickDocumentAdd.ToolTipText = "Добавить документ";
+			buttonQuickDocumentAdd.Click += buttonQuickDocumentAdd_Click;
+			//
 			// MainForm
 			// 
 			AutoScaleDimensions = new SizeF(7F, 17F);
 			AutoScaleMode = AutoScaleMode.Font;
-			ClientSize = new Size(1030, 565);
+			BackColor = Color.FromArgb(234, 234, 224);
+			ClientSize = new Size(1124, 616);
 			Controls.Add(panel2);
-			Controls.Add(panel1);
+			Controls.Add(menuStrip1);
+			MainMenuStrip = menuStrip1;
 			Name = "MainForm";
 			Padding = new Padding(4);
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "RootForm";
 			((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-			panel1.ResumeLayout(false);
 			panel2.ResumeLayout(false);
 			splitContainer1.Panel1.ResumeLayout(false);
 			splitContainer1.Panel2.ResumeLayout(false);
@@ -196,13 +235,17 @@
 
 		#endregion
 		private DataGridView dataGridView1;
-		private DateTimePicker dateTimePicker1;
-		private Panel panel1;
 		private Panel panel2;
-		private Button buttonQuickDocumentAdd;
 		private DataGridViewTextBoxColumn ColumnDate;
 		private DataGridViewTextBoxColumn ColumnSum;
 		private SplitContainer splitContainer1;
 		private RichTextBox richTextBoxReport;
+		private MenuStrip menuStrip1;
+		private ToolStripLabel labelPeriod;
+		private ToolStripComboBox comboBoxMonth;
+		private ToolStripComboBox comboBoxYear;
+		private ToolStripMenuItem settingsToolStripMenuItem;
+		private ToolStripMenuItem databasePathToolStripMenuItem;
+		private ToolStripButton buttonQuickDocumentAdd;
 	}
 }

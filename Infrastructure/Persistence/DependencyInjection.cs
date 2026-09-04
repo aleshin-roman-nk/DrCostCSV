@@ -7,6 +7,7 @@ using Application.ExpenseDocuments.Abstractions;
 using Application.ExpenseDocuments.Abstractions.Persistence;
 using Application.Reports.Abstractions;
 using Application.JsonImportPromptSettings.Abstractions;
+using Application.DatabasePathSettings.Abstractions;
 using Infrastructure.Persistence.Readers;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Reports;
@@ -19,6 +20,13 @@ namespace Infrastructure.Persistence;
 
 public static class DependencyInjection
 {
+	public static IServiceCollection AddDatabasePathSettings(
+		this IServiceCollection services,
+		IDatabasePathSettingsRepository settingsRepository)
+	{
+		return services.AddSingleton(settingsRepository);
+	}
+
 	public static IServiceCollection AddSqlitePersistence(this IServiceCollection services, string connectionString)
 	{
 		services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));

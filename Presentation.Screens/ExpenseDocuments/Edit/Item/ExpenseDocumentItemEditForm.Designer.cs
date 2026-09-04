@@ -50,6 +50,7 @@
 			// 
 			label1.AutoSize = true;
 			label1.Font = new Font("Segoe UI", 14.25F);
+			label1.ForeColor = Color.FromArgb(24, 38, 36);
 			label1.Location = new Point(12, 37);
 			label1.Name = "label1";
 			label1.Size = new Size(143, 25);
@@ -59,7 +60,9 @@
 			// textBoxItemName
 			// 
 			textBoxItemName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			textBoxItemName.BackColor = Color.FromArgb(234, 234, 224);
 			textBoxItemName.Font = new Font("Segoe UI", 14.25F);
+			textBoxItemName.ForeColor = Color.FromArgb(24, 38, 36);
 			textBoxItemName.Location = new Point(174, 34);
 			textBoxItemName.Name = "textBoxItemName";
 			textBoxItemName.Size = new Size(422, 33);
@@ -69,6 +72,7 @@
 			// 
 			label2.AutoSize = true;
 			label2.Font = new Font("Segoe UI", 14.25F);
+			label2.ForeColor = Color.FromArgb(24, 38, 36);
 			label2.Location = new Point(12, 92);
 			label2.Name = "label2";
 			label2.Size = new Size(57, 25);
@@ -78,8 +82,10 @@
 			// numericUpDownPrice
 			// 
 			numericUpDownPrice.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			numericUpDownPrice.BackColor = Color.FromArgb(234, 234, 224);
 			numericUpDownPrice.DecimalPlaces = 2;
 			numericUpDownPrice.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			numericUpDownPrice.ForeColor = Color.FromArgb(24, 38, 36);
 			numericUpDownPrice.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
 			numericUpDownPrice.Location = new Point(174, 90);
 			numericUpDownPrice.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
@@ -92,8 +98,10 @@
 			// numericUpDownAmount
 			// 
 			numericUpDownAmount.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			numericUpDownAmount.BackColor = Color.FromArgb(234, 234, 224);
 			numericUpDownAmount.DecimalPlaces = 2;
 			numericUpDownAmount.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			numericUpDownAmount.ForeColor = Color.FromArgb(24, 38, 36);
 			numericUpDownAmount.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
 			numericUpDownAmount.Location = new Point(174, 129);
 			numericUpDownAmount.Maximum = new decimal(new int[] { 100000000, 0, 0, 0 });
@@ -107,6 +115,7 @@
 			// 
 			label3.AutoSize = true;
 			label3.Font = new Font("Segoe UI", 14.25F);
+			label3.ForeColor = Color.FromArgb(24, 38, 36);
 			label3.Location = new Point(12, 131);
 			label3.Name = "label3";
 			label3.Size = new Size(114, 25);
@@ -117,6 +126,7 @@
 			// 
 			label4.AutoSize = true;
 			label4.Font = new Font("Segoe UI", 14.25F);
+			label4.ForeColor = Color.FromArgb(24, 38, 36);
 			label4.Location = new Point(12, 189);
 			label4.Name = "label4";
 			label4.Size = new Size(69, 25);
@@ -126,7 +136,9 @@
 			// textBoxSum
 			// 
 			textBoxSum.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			textBoxSum.BackColor = Color.FromArgb(234, 234, 224);
 			textBoxSum.Font = new Font("Segoe UI", 14.25F);
+			textBoxSum.ForeColor = Color.FromArgb(24, 38, 36);
 			textBoxSum.Location = new Point(174, 186);
 			textBoxSum.Name = "textBoxSum";
 			textBoxSum.ReadOnly = true;
@@ -137,6 +149,7 @@
 			// 
 			label5.AutoSize = true;
 			label5.Font = new Font("Segoe UI", 14.25F);
+			label5.ForeColor = Color.FromArgb(24, 38, 36);
 			label5.Location = new Point(12, 263);
 			label5.Name = "label5";
 			label5.Size = new Size(156, 25);
@@ -146,7 +159,9 @@
 			// comboBoxCategory
 			// 
 			comboBoxCategory.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			comboBoxCategory.BackColor = Color.FromArgb(234, 234, 224);
 			comboBoxCategory.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			comboBoxCategory.ForeColor = Color.FromArgb(24, 38, 36);
 			comboBoxCategory.FormattingEnabled = true;
 			comboBoxCategory.Location = new Point(174, 260);
 			comboBoxCategory.Name = "comboBoxCategory";
@@ -157,6 +172,7 @@
 			// 
 			label6.AutoSize = true;
 			label6.Font = new Font("Segoe UI", 14.25F);
+			label6.ForeColor = Color.FromArgb(24, 38, 36);
 			label6.Location = new Point(12, 307);
 			label6.Name = "label6";
 			label6.Size = new Size(39, 25);
@@ -166,7 +182,9 @@
 			// comboBoxTag
 			// 
 			comboBoxTag.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			comboBoxTag.BackColor = Color.FromArgb(234, 234, 224);
 			comboBoxTag.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			comboBoxTag.ForeColor = Color.FromArgb(24, 38, 36);
 			comboBoxTag.FormattingEnabled = true;
 			comboBoxTag.Location = new Point(174, 304);
 			comboBoxTag.Name = "comboBoxTag";
@@ -176,10 +194,12 @@
 			// buttonSave
 			// 
 			buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			buttonSave.BackColor = Color.LawnGreen;
+			buttonSave.BackColor = Color.FromArgb(220, 220, 220);
 			buttonSave.DialogResult = DialogResult.OK;
+			buttonSave.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 			buttonSave.FlatStyle = FlatStyle.Flat;
 			buttonSave.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			buttonSave.ForeColor = Color.FromArgb(24, 38, 36);
 			buttonSave.Location = new Point(400, 367);
 			buttonSave.Name = "buttonSave";
 			buttonSave.Size = new Size(106, 46);
@@ -190,10 +210,12 @@
 			// buttonCancel
 			// 
 			buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			buttonCancel.BackColor = Color.LightCoral;
+			buttonCancel.BackColor = Color.FromArgb(220, 220, 220);
 			buttonCancel.DialogResult = DialogResult.Cancel;
+			buttonCancel.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 			buttonCancel.FlatStyle = FlatStyle.Flat;
 			buttonCancel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			buttonCancel.ForeColor = Color.FromArgb(24, 38, 36);
 			buttonCancel.Location = new Point(512, 367);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(84, 46);
@@ -205,6 +227,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 17F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.FromArgb(234, 234, 224);
 			ClientSize = new Size(614, 439);
 			Controls.Add(comboBoxTag);
 			Controls.Add(label6);
@@ -220,6 +243,7 @@
 			Controls.Add(label2);
 			Controls.Add(textBoxItemName);
 			Controls.Add(label1);
+			ForeColor = Color.FromArgb(24, 38, 36);
 			FormBorderStyle = FormBorderStyle.FixedToolWindow;
 			Name = "ExpenseDocumentItemEditForm";
 			StartPosition = FormStartPosition.CenterScreen;

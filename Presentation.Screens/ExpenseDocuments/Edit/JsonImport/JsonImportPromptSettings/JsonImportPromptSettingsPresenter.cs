@@ -51,7 +51,9 @@ public sealed class JsonImportPromptSettingsPresenter
 		budgetTags = tags.Data ?? Array.Empty<BudgetTagOptionViewModel>();
 		view.SetBudgetClassifications(budgetLines, budgetTags);
 		view.SetAdditionalInstructions(settings.Data ?? string.Empty);
-		view.SetPrompt(JsonImportPromptBuilder.Build(budgetLines, budgetTags, settings.Data ?? string.Empty));
+		var prompt = SetPrompt(settings.Data ?? string.Empty);
+		if (!prompt.IsSuccess)
+			return ScreenResult.Failure(prompt.Error ?? "Не удалось сформировать промпт.");
 		return ScreenResult.Success();
 	}
 
@@ -62,7 +64,9 @@ public sealed class JsonImportPromptSettingsPresenter
 
 	private void View_AdditionalInstructionsChanged()
 	{
-		view.SetPrompt(JsonImportPromptBuilder.Build(budgetLines, budgetTags, view.GetAdditionalInstructions()));
+		var result = SetPrompt(view.GetAdditionalInstructions());
+		if (!result.IsSuccess)
+			view.ShowError(result.Error ?? "Не удалось сформировать промпт.");
 	}
 
 	private void View_SaveRequested()
@@ -125,6 +129,17 @@ public sealed class JsonImportPromptSettingsPresenter
 		budgetLines = lines.Data ?? Array.Empty<BudgetLineOptionViewModel>();
 		budgetTags = tags.Data ?? Array.Empty<BudgetTagOptionViewModel>();
 		view.SetBudgetClassifications(budgetLines, budgetTags);
-		view.SetPrompt(JsonImportPromptBuilder.Build(budgetLines, budgetTags, view.GetAdditionalInstructions()));
+		var prompt = SetPrompt(view.GetAdditionalInstructions());
+		if (!prompt.IsSuccess)
+			view.ShowError(prompt.Error ?? "Не удалось сформировать промпт.");
+	}
+
+	private ActionResult<string> SetPrompt(string additionalInstructions)
+	{
+		var result = actions.BuildPrompt(budgetLines, budgetTags, additionalInstructions);
+		if (result.IsSuccess)
+			view.SetPrompt(result.Data ?? string.Empty);
+
+		return result;
 	}
 }

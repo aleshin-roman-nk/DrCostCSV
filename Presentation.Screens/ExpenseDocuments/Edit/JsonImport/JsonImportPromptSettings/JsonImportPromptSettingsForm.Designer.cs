@@ -33,6 +33,10 @@ partial class JsonImportPromptSettingsForm
 
 	private void InitializeComponent()
 	{
+		DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+		DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+		DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+		DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
 		labelDescription = new Label();
 		groupBoxBudgetLines = new GroupBox();
 		dataGridViewBudgetLines = new DataGridView();
@@ -64,17 +68,20 @@ partial class JsonImportPromptSettingsForm
 		// labelDescription
 		labelDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 		labelDescription.Font = new Font("Segoe UI", 10F);
+		labelDescription.ForeColor = Color.FromArgb(24, 38, 36);
 		labelDescription.Location = new Point(12, 9);
 		labelDescription.Name = "labelDescription";
 		labelDescription.Size = new Size(876, 40);
 		labelDescription.TabIndex = 0;
 		labelDescription.Text = "Выберите строку бюджета слева, чтобы увидеть и изменить её уточняющие теги. Удаление доступно, только если значение не используется в позициях документов.";
 		// groupBoxBudgetLines
+		groupBoxBudgetLines.BackColor = Color.FromArgb(234, 234, 224);
 		groupBoxBudgetLines.Controls.Add(buttonDeleteBudgetLine);
 		groupBoxBudgetLines.Controls.Add(buttonAddBudgetLine);
 		groupBoxBudgetLines.Controls.Add(textBoxNewBudgetLine);
 		groupBoxBudgetLines.Controls.Add(dataGridViewBudgetLines);
 		groupBoxBudgetLines.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+		groupBoxBudgetLines.ForeColor = Color.FromArgb(24, 38, 36);
 		groupBoxBudgetLines.Location = new Point(12, 53);
 		groupBoxBudgetLines.Name = "groupBoxBudgetLines";
 		groupBoxBudgetLines.Size = new Size(430, 253);
@@ -86,14 +93,37 @@ partial class JsonImportPromptSettingsForm
 		dataGridViewBudgetLines.AllowUserToDeleteRows = false;
 		dataGridViewBudgetLines.AllowUserToResizeRows = false;
 		dataGridViewBudgetLines.AutoGenerateColumns = false;
-		dataGridViewBudgetLines.BackgroundColor = SystemColors.Window;
-		dataGridViewBudgetLines.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+		dataGridViewBudgetLines.BackgroundColor = Color.FromArgb(234, 234, 224);
+		dataGridViewBudgetLines.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+		dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+		dataGridViewCellStyle1.BackColor = Color.FromArgb(220, 220, 220);
+		dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+		dataGridViewCellStyle1.ForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle1.Padding = new Padding(4, 0, 4, 0);
+		dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(220, 220, 220);
+		dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+		dataGridViewBudgetLines.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+		dataGridViewBudgetLines.ColumnHeadersHeight = 27;
+		dataGridViewBudgetLines.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 		dataGridViewBudgetLines.Columns.AddRange(new DataGridViewColumn[] { columnBudgetLine });
+		dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+		dataGridViewCellStyle2.BackColor = Color.FromArgb(234, 234, 224);
+		dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
+		dataGridViewCellStyle2.ForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle2.Padding = new Padding(4, 0, 4, 0);
+		dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(177, 212, 224);
+		dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+		dataGridViewBudgetLines.DefaultCellStyle = dataGridViewCellStyle2;
+		dataGridViewBudgetLines.EnableHeadersVisualStyles = false;
+		dataGridViewBudgetLines.GridColor = Color.FromArgb(29, 198, 144);
 		dataGridViewBudgetLines.Location = new Point(8, 22);
 		dataGridViewBudgetLines.MultiSelect = false;
 		dataGridViewBudgetLines.Name = "dataGridViewBudgetLines";
 		dataGridViewBudgetLines.ReadOnly = true;
 		dataGridViewBudgetLines.RowHeadersVisible = false;
+		dataGridViewBudgetLines.RowTemplate.Height = 24;
 		dataGridViewBudgetLines.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 		dataGridViewBudgetLines.Size = new Size(414, 153);
 		dataGridViewBudgetLines.TabIndex = 0;
@@ -104,7 +134,9 @@ partial class JsonImportPromptSettingsForm
 		columnBudgetLine.Name = "columnBudgetLine";
 		columnBudgetLine.ReadOnly = true;
 		// textBoxNewBudgetLine
+		textBoxNewBudgetLine.BackColor = Color.FromArgb(234, 234, 224);
 		textBoxNewBudgetLine.Font = new Font("Segoe UI", 10F);
+		textBoxNewBudgetLine.ForeColor = Color.FromArgb(24, 38, 36);
 		textBoxNewBudgetLine.Location = new Point(8, 184);
 		textBoxNewBudgetLine.MaxLength = 100;
 		textBoxNewBudgetLine.Name = "textBoxNewBudgetLine";
@@ -112,30 +144,40 @@ partial class JsonImportPromptSettingsForm
 		textBoxNewBudgetLine.Size = new Size(260, 25);
 		textBoxNewBudgetLine.TabIndex = 1;
 		// buttonAddBudgetLine
+		buttonAddBudgetLine.BackColor = Color.FromArgb(220, 220, 220);
+		buttonAddBudgetLine.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
+		buttonAddBudgetLine.FlatStyle = FlatStyle.Flat;
 		buttonAddBudgetLine.Font = new Font("Segoe UI", 9F);
+		buttonAddBudgetLine.ForeColor = Color.FromArgb(24, 38, 36);
 		buttonAddBudgetLine.Location = new Point(274, 183);
 		buttonAddBudgetLine.Name = "buttonAddBudgetLine";
 		buttonAddBudgetLine.Size = new Size(148, 28);
 		buttonAddBudgetLine.TabIndex = 2;
 		buttonAddBudgetLine.Text = "Добавить";
-		buttonAddBudgetLine.UseVisualStyleBackColor = true;
+		buttonAddBudgetLine.UseVisualStyleBackColor = false;
 		buttonAddBudgetLine.Click += buttonAddBudgetLine_Click;
 		// buttonDeleteBudgetLine
+		buttonDeleteBudgetLine.BackColor = Color.FromArgb(220, 220, 220);
+		buttonDeleteBudgetLine.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
+		buttonDeleteBudgetLine.FlatStyle = FlatStyle.Flat;
 		buttonDeleteBudgetLine.Font = new Font("Segoe UI", 9F);
+		buttonDeleteBudgetLine.ForeColor = Color.FromArgb(24, 38, 36);
 		buttonDeleteBudgetLine.Location = new Point(274, 216);
 		buttonDeleteBudgetLine.Name = "buttonDeleteBudgetLine";
 		buttonDeleteBudgetLine.Size = new Size(148, 28);
 		buttonDeleteBudgetLine.TabIndex = 3;
 		buttonDeleteBudgetLine.Text = "Удалить выбранную";
-		buttonDeleteBudgetLine.UseVisualStyleBackColor = true;
+		buttonDeleteBudgetLine.UseVisualStyleBackColor = false;
 		buttonDeleteBudgetLine.Click += buttonDeleteBudgetLine_Click;
 		// groupBoxBudgetTags
 		groupBoxBudgetTags.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+		groupBoxBudgetTags.BackColor = Color.FromArgb(234, 234, 224);
 		groupBoxBudgetTags.Controls.Add(buttonDeleteBudgetTag);
 		groupBoxBudgetTags.Controls.Add(buttonAddBudgetTag);
 		groupBoxBudgetTags.Controls.Add(textBoxNewBudgetTag);
 		groupBoxBudgetTags.Controls.Add(dataGridViewBudgetTags);
 		groupBoxBudgetTags.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+		groupBoxBudgetTags.ForeColor = Color.FromArgb(24, 38, 36);
 		groupBoxBudgetTags.Location = new Point(458, 53);
 		groupBoxBudgetTags.Name = "groupBoxBudgetTags";
 		groupBoxBudgetTags.Size = new Size(430, 253);
@@ -147,14 +189,37 @@ partial class JsonImportPromptSettingsForm
 		dataGridViewBudgetTags.AllowUserToDeleteRows = false;
 		dataGridViewBudgetTags.AllowUserToResizeRows = false;
 		dataGridViewBudgetTags.AutoGenerateColumns = false;
-		dataGridViewBudgetTags.BackgroundColor = SystemColors.Window;
-		dataGridViewBudgetTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+		dataGridViewBudgetTags.BackgroundColor = Color.FromArgb(234, 234, 224);
+		dataGridViewBudgetTags.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+		dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+		dataGridViewCellStyle3.BackColor = Color.FromArgb(220, 220, 220);
+		dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F);
+		dataGridViewCellStyle3.ForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle3.Padding = new Padding(4, 0, 4, 0);
+		dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(220, 220, 220);
+		dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+		dataGridViewBudgetTags.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+		dataGridViewBudgetTags.ColumnHeadersHeight = 27;
+		dataGridViewBudgetTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 		dataGridViewBudgetTags.Columns.AddRange(new DataGridViewColumn[] { columnBudgetTag });
+		dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+		dataGridViewCellStyle4.BackColor = Color.FromArgb(234, 234, 224);
+		dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
+		dataGridViewCellStyle4.ForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle4.Padding = new Padding(4, 0, 4, 0);
+		dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(177, 212, 224);
+		dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(24, 38, 36);
+		dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+		dataGridViewBudgetTags.DefaultCellStyle = dataGridViewCellStyle4;
+		dataGridViewBudgetTags.EnableHeadersVisualStyles = false;
+		dataGridViewBudgetTags.GridColor = Color.FromArgb(29, 198, 144);
 		dataGridViewBudgetTags.Location = new Point(8, 22);
 		dataGridViewBudgetTags.MultiSelect = false;
 		dataGridViewBudgetTags.Name = "dataGridViewBudgetTags";
 		dataGridViewBudgetTags.ReadOnly = true;
 		dataGridViewBudgetTags.RowHeadersVisible = false;
+		dataGridViewBudgetTags.RowTemplate.Height = 24;
 		dataGridViewBudgetTags.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 		dataGridViewBudgetTags.Size = new Size(414, 153);
 		dataGridViewBudgetTags.TabIndex = 0;
@@ -165,7 +230,9 @@ partial class JsonImportPromptSettingsForm
 		columnBudgetTag.Name = "columnBudgetTag";
 		columnBudgetTag.ReadOnly = true;
 		// textBoxNewBudgetTag
+		textBoxNewBudgetTag.BackColor = Color.FromArgb(234, 234, 224);
 		textBoxNewBudgetTag.Font = new Font("Segoe UI", 10F);
+		textBoxNewBudgetTag.ForeColor = Color.FromArgb(24, 38, 36);
 		textBoxNewBudgetTag.Location = new Point(8, 184);
 		textBoxNewBudgetTag.MaxLength = 100;
 		textBoxNewBudgetTag.Name = "textBoxNewBudgetTag";
@@ -173,27 +240,37 @@ partial class JsonImportPromptSettingsForm
 		textBoxNewBudgetTag.Size = new Size(260, 25);
 		textBoxNewBudgetTag.TabIndex = 1;
 		// buttonAddBudgetTag
+		buttonAddBudgetTag.BackColor = Color.FromArgb(220, 220, 220);
+		buttonAddBudgetTag.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
+		buttonAddBudgetTag.FlatStyle = FlatStyle.Flat;
 		buttonAddBudgetTag.Font = new Font("Segoe UI", 9F);
+		buttonAddBudgetTag.ForeColor = Color.FromArgb(24, 38, 36);
 		buttonAddBudgetTag.Location = new Point(274, 183);
 		buttonAddBudgetTag.Name = "buttonAddBudgetTag";
 		buttonAddBudgetTag.Size = new Size(148, 28);
 		buttonAddBudgetTag.TabIndex = 2;
 		buttonAddBudgetTag.Text = "Добавить";
-		buttonAddBudgetTag.UseVisualStyleBackColor = true;
+		buttonAddBudgetTag.UseVisualStyleBackColor = false;
 		buttonAddBudgetTag.Click += buttonAddBudgetTag_Click;
 		// buttonDeleteBudgetTag
+		buttonDeleteBudgetTag.BackColor = Color.FromArgb(220, 220, 220);
+		buttonDeleteBudgetTag.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
+		buttonDeleteBudgetTag.FlatStyle = FlatStyle.Flat;
 		buttonDeleteBudgetTag.Font = new Font("Segoe UI", 9F);
+		buttonDeleteBudgetTag.ForeColor = Color.FromArgb(24, 38, 36);
 		buttonDeleteBudgetTag.Location = new Point(274, 216);
 		buttonDeleteBudgetTag.Name = "buttonDeleteBudgetTag";
 		buttonDeleteBudgetTag.Size = new Size(148, 28);
 		buttonDeleteBudgetTag.TabIndex = 3;
 		buttonDeleteBudgetTag.Text = "Удалить выбранный";
-		buttonDeleteBudgetTag.UseVisualStyleBackColor = true;
+		buttonDeleteBudgetTag.UseVisualStyleBackColor = false;
 		buttonDeleteBudgetTag.Click += buttonDeleteBudgetTag_Click;
 		// groupBoxInstructions
 		groupBoxInstructions.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+		groupBoxInstructions.BackColor = Color.FromArgb(234, 234, 224);
 		groupBoxInstructions.Controls.Add(textBoxAdditionalInstructions);
 		groupBoxInstructions.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+		groupBoxInstructions.ForeColor = Color.FromArgb(24, 38, 36);
 		groupBoxInstructions.Location = new Point(12, 316);
 		groupBoxInstructions.Name = "groupBoxInstructions";
 		groupBoxInstructions.Size = new Size(876, 100);
@@ -201,8 +278,10 @@ partial class JsonImportPromptSettingsForm
 		groupBoxInstructions.TabStop = false;
 		groupBoxInstructions.Text = "Дополнительные правила для ИИ (необязательно)";
 		// textBoxAdditionalInstructions
+		textBoxAdditionalInstructions.BackColor = Color.FromArgb(234, 234, 224);
 		textBoxAdditionalInstructions.Dock = DockStyle.Fill;
 		textBoxAdditionalInstructions.Font = new Font("Segoe UI", 10F);
+		textBoxAdditionalInstructions.ForeColor = Color.FromArgb(24, 38, 36);
 		textBoxAdditionalInstructions.Location = new Point(3, 21);
 		textBoxAdditionalInstructions.MaxLength = 2000;
 		textBoxAdditionalInstructions.Multiline = true;
@@ -213,8 +292,10 @@ partial class JsonImportPromptSettingsForm
 		textBoxAdditionalInstructions.TextChanged += textBoxAdditionalInstructions_TextChanged;
 		// groupBoxPrompt
 		groupBoxPrompt.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+		groupBoxPrompt.BackColor = Color.FromArgb(234, 234, 224);
 		groupBoxPrompt.Controls.Add(textBoxPrompt);
 		groupBoxPrompt.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+		groupBoxPrompt.ForeColor = Color.FromArgb(24, 38, 36);
 		groupBoxPrompt.Location = new Point(12, 424);
 		groupBoxPrompt.Name = "groupBoxPrompt";
 		groupBoxPrompt.Size = new Size(876, 265);
@@ -222,8 +303,10 @@ partial class JsonImportPromptSettingsForm
 		groupBoxPrompt.TabStop = false;
 		groupBoxPrompt.Text = "Сгенерированный промпт";
 		// textBoxPrompt
+		textBoxPrompt.BackColor = Color.FromArgb(234, 234, 224);
 		textBoxPrompt.Dock = DockStyle.Fill;
 		textBoxPrompt.Font = new Font("Consolas", 10F);
+		textBoxPrompt.ForeColor = Color.FromArgb(24, 38, 36);
 		textBoxPrompt.Location = new Point(3, 21);
 		textBoxPrompt.Multiline = true;
 		textBoxPrompt.Name = "textBoxPrompt";
@@ -234,25 +317,31 @@ partial class JsonImportPromptSettingsForm
 		textBoxPrompt.WordWrap = false;
 		// buttons and status
 		buttonCopy.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+		buttonCopy.BackColor = Color.FromArgb(220, 220, 220);
+		buttonCopy.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
+		buttonCopy.FlatStyle = FlatStyle.Flat;
 		buttonCopy.Font = new Font("Segoe UI", 10F);
+		buttonCopy.ForeColor = Color.FromArgb(24, 38, 36);
 		buttonCopy.Location = new Point(12, 702);
 		buttonCopy.Name = "buttonCopy";
 		buttonCopy.Size = new Size(150, 38);
 		buttonCopy.TabIndex = 5;
 		buttonCopy.Text = "Копировать промпт";
-		buttonCopy.UseVisualStyleBackColor = true;
+		buttonCopy.UseVisualStyleBackColor = false;
 		buttonCopy.Click += buttonCopy_Click;
 		labelCopyStatus.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 		labelCopyStatus.AutoSize = true;
-		labelCopyStatus.ForeColor = Color.ForestGreen;
+		labelCopyStatus.ForeColor = Color.FromArgb(29, 198, 144);
 		labelCopyStatus.Location = new Point(174, 712);
 		labelCopyStatus.Name = "labelCopyStatus";
 		labelCopyStatus.Size = new Size(0, 17);
 		labelCopyStatus.TabIndex = 6;
 		buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-		buttonSave.BackColor = Color.LawnGreen;
+		buttonSave.BackColor = Color.FromArgb(220, 220, 220);
+		buttonSave.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 		buttonSave.FlatStyle = FlatStyle.Flat;
 		buttonSave.Font = new Font("Segoe UI", 10F);
+		buttonSave.ForeColor = Color.FromArgb(24, 38, 36);
 		buttonSave.Location = new Point(662, 702);
 		buttonSave.Name = "buttonSave";
 		buttonSave.Size = new Size(109, 38);
@@ -261,18 +350,23 @@ partial class JsonImportPromptSettingsForm
 		buttonSave.UseVisualStyleBackColor = false;
 		buttonSave.Click += buttonSave_Click;
 		buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+		buttonCancel.BackColor = Color.FromArgb(220, 220, 220);
 		buttonCancel.DialogResult = DialogResult.Cancel;
+		buttonCancel.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
+		buttonCancel.FlatStyle = FlatStyle.Flat;
 		buttonCancel.Font = new Font("Segoe UI", 10F);
+		buttonCancel.ForeColor = Color.FromArgb(24, 38, 36);
 		buttonCancel.Location = new Point(777, 702);
 		buttonCancel.Name = "buttonCancel";
 		buttonCancel.Size = new Size(111, 38);
 		buttonCancel.TabIndex = 8;
 		buttonCancel.Text = "Закрыть";
-		buttonCancel.UseVisualStyleBackColor = true;
+		buttonCancel.UseVisualStyleBackColor = false;
 		// form
 		AcceptButton = buttonSave;
 		AutoScaleDimensions = new SizeF(7F, 17F);
 		AutoScaleMode = AutoScaleMode.Font;
+		BackColor = Color.FromArgb(234, 234, 224);
 		CancelButton = buttonCancel;
 		ClientSize = new Size(900, 752);
 		Controls.Add(buttonCancel);
@@ -284,6 +378,7 @@ partial class JsonImportPromptSettingsForm
 		Controls.Add(groupBoxBudgetTags);
 		Controls.Add(groupBoxBudgetLines);
 		Controls.Add(labelDescription);
+		ForeColor = Color.FromArgb(24, 38, 36);
 		MinimumSize = new Size(720, 650);
 		Name = "JsonImportPromptSettingsForm";
 		StartPosition = FormStartPosition.CenterParent;

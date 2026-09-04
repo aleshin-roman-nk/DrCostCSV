@@ -7,6 +7,7 @@ using Presentation.Screens.ExpenseDocuments.Edit.JsonImport.JsonImportPromptSett
 using Presentation.Screens.ExpenseDocuments.List;
 using Presentation.Screens.Common;
 using Presentation.Screens.Main;
+using Presentation.Screens.Main.DatabasePathSettings;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +33,10 @@ public static class DependencyInjection
 			.AddSingleton<IMainView>(sp => sp.GetRequiredService<MainForm>())
 			.AddSingleton<MainPresenter>()
 			.AddSingleton<MainActions>()
+			.AddSingleton<DatabasePathSettingsFlow>()
+			.AddScoped<IDatabasePathSettingsView, DatabasePathSettingsForm>()
+			.AddScoped<DatabasePathSettingsPresenter>()
+			.AddScoped<DatabasePathSettingsActions>()
 
 			.AddSingleton<ExpenseDocumentEditFlow>()
 			.AddScoped<IExpenseDocumentEditView, ExpenseDocumentEditForm>()

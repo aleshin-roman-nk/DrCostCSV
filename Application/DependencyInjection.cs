@@ -12,6 +12,7 @@ using Application.Reports.GetDailyExpensesByMonth;
 using Application.Reports.GetDocumentTitlesByDay;
 using Application.Reports.GetBudgetLineExpensesByMonth;
 using Application.JsonImportPromptSettings;
+using Application.DatabasePathSettings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -28,6 +29,7 @@ public static class DependencyInjection
 		services.AddScoped<GetDocumentTitlesByDayUseCase>();
 		services.AddScoped<GetExpenseDocumentForEditUseCase>();
 		services.AddScoped<UpdateExpenseDocumentUseCase>();
+		services.AddScoped<BuildReceiptPromptUseCase>();
 		services.AddScoped<RecognizeReceiptUseCase>();
 		services.AddScoped<AddBudgetLineUseCase>();
 		services.AddScoped<DeleteBudgetLineUseCase>();
@@ -35,6 +37,8 @@ public static class DependencyInjection
 		services.AddScoped<DeleteBudgetTagUseCase>();
 		services.AddScoped<GetJsonImportPromptSettingsUseCase>();
 		services.AddScoped<SaveJsonImportPromptSettingsUseCase>();
+		services.AddScoped<GetDatabasePathUseCase>();
+		services.AddScoped<SaveDatabasePathUseCase>();
 		return services;
 	}
 }

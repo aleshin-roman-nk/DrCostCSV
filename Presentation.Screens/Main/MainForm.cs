@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,27 +15,29 @@ public partial class MainForm : Form, IMainView
 {
 	BindingSource bs = new BindingSource();
 
-	public DateTime CurrentDate => dateTimePicker1.Value;
+	public DateTime CurrentDate
+	{
+		get
+		{
+			if (comboBoxYear.SelectedItem is not int year || comboBoxMonth.SelectedIndex < 0)
+				return DateTime.Today;
+
+			return new DateTime(year, comboBoxMonth.SelectedIndex + 1, 1);
+		}
+	}
 
 	public MainForm()
 	{
 		InitializeComponent();
 
-		dataGridView1.ShowCellToolTips = false;
-
+		InitializePeriodSelector();
 		dataGridView1.DataSource = bs;
-
-		// Настраиваем только месяц и год
-		dateTimePicker1.Format = DateTimePickerFormat.Custom;
-		dateTimePicker1.CustomFormat = "MMMM yyyy"; // Отобразит: "Июнь 2026"
-
-		// Отключаем выпадающий календарь, заменяя его на стрелки управления
-		dateTimePicker1.ShowUpDown = true;
 	}
 
 	public event Action<DateTime>? OpenDocumentList;
 	public event Action<DateTime>? DateChanged;
 	public event Action? CreateDocument;
+	public event Action? DatabasePathSettingsRequested;
 
 	public void SetDailyExpenses(IReadOnlyList<DailyExpenseRowViewModel> list)
 	{
@@ -78,9 +81,26 @@ public partial class MainForm : Form, IMainView
 		OpenDocumentList?.Invoke(row.Date);
 	}
 
-	private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+	private void comboBoxPeriod_SelectedIndexChanged(object? sender, EventArgs e)
 	{
-		DateChanged?.Invoke(dateTimePicker1.Value);
+		if (comboBoxMonth.SelectedIndex < 0 || comboBoxYear.SelectedItem is not int)
+			return;
+
+		DateChanged?.Invoke(CurrentDate);
+	}
+
+	private void InitializePeriodSelector()
+	{
+		var russianCulture = CultureInfo.GetCultureInfo("ru-RU");
+
+		for (var month = 1; month <= 12; month++)
+			comboBoxMonth.Items.Add(russianCulture.DateTimeFormat.GetMonthName(month));
+
+		for (var year = 1900; year <= 2100; year++)
+			comboBoxYear.Items.Add(year);
+
+		comboBoxMonth.SelectedIndex = DateTime.Today.Month - 1;
+		comboBoxYear.SelectedItem = DateTime.Today.Year;
 	}
 
 	private DailyExpenseRowViewModel? GetCurrentDailyExpenseRow()
@@ -93,8 +113,14 @@ public partial class MainForm : Form, IMainView
 		CreateDocument?.Invoke();
 	}
 
+	private void databasePathToolStripMenuItem_Click(object sender, EventArgs e)
+	{
+		DatabasePathSettingsRequested?.Invoke();
+	}
+
 	public void ShowMsg(string msg)
 	{
 		MessageBox.Show(msg);
 	}
+
 }

@@ -13,6 +13,8 @@ public interface IMainView
 
 	event Action CreateDocument;
 
+	event Action DatabasePathSettingsRequested;
+
 	DateTime CurrentDate {  get; }
 
 	void SetDailyExpenses(IReadOnlyList<DailyExpenseRowViewModel> list);
@@ -20,4 +22,5 @@ public interface IMainView
 	void SetMonthlyReport(string report);
 
 	void ShowMsg(string msg);
+
 }

@@ -8,7 +8,8 @@ public sealed class AppDbContextFactory
 {
 	public AppDbContext CreateDbContext(string[] args)
 	{
-		var connectionString = SqliteDatabasePath.GetConnectionString();
+		var settings = new JsonDatabasePathSettingsRepository();
+		var connectionString = SqliteDatabasePath.GetConnectionString(settings.GetDatabasePath());
 
 		var options = new DbContextOptionsBuilder<AppDbContext>()
 			.UseSqlite(connectionString)

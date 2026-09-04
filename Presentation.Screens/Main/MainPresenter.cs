@@ -4,6 +4,7 @@ using Presentation.Screens.ExpenseDocuments.Edit;
 using Presentation.Screens.ExpenseDocuments.List;
 using Presentation.Screens.Common;
 using Presentation.Screens.Main;
+using Presentation.Screens.Main.DatabasePathSettings;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -17,6 +18,7 @@ public class MainPresenter
 	private readonly MainActions mainActionsRunner;
 	private readonly ExpenseDocumentEditFlow editExpenseDocumentFlow;
 	private readonly ILogger<MainPresenter> logger;
+	private readonly DatabasePathSettingsFlow databasePathSettingsFlow;
 
 	public IMainView View => view;
 
@@ -25,6 +27,7 @@ public class MainPresenter
 		MainActions mainActionsRunner,
 
 		ExpenseDocumentEditFlow editExpenseDocumentRunner,
+		DatabasePathSettingsFlow databasePathSettingsFlow,
 
 		ILogger<MainPresenter> logger
 
@@ -35,10 +38,12 @@ public class MainPresenter
 		this.expenseDocumentListRunner = expenseDocumentsRunner;
 		this.mainActionsRunner = mainActionsRunner;
 		this.editExpenseDocumentFlow = editExpenseDocumentRunner;
+		this.databasePathSettingsFlow = databasePathSettingsFlow;
 		this.logger = logger;
 		this.view.OpenDocumentList += View_OpenDocumentList;
 		this.view.DateChanged += View_DateChanged;
 		this.view.CreateDocument += View_CreateDocument;
+		this.view.DatabasePathSettingsRequested += View_DatabasePathSettingsRequested;
 
 		Init();
 	}
@@ -60,6 +65,15 @@ public class MainPresenter
 	private void Init()
 	{
 		ReloadDailyExpenses(DateTime.Now);
+	}
+
+	private void View_DatabasePathSettingsRequested()
+	{
+		var result = databasePathSettingsFlow.Run();
+		if (!result.IsSuccess && !result.IsCancelled)
+			view.ShowMsg(result.Error ?? "Не удалось открыть настройки пути к файлу базы данных.");
+		else if (result.IsSuccess)
+			view.ShowMsg("Путь к файлу базы данных сохранён. Перезапустите приложение, чтобы применить изменение.");
 	}
 
 	private void ReloadDailyExpenses(DateTime dt)

@@ -28,6 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
 			buttonSave = new Button();
 			buttonCancel = new Button();
 			buttonEnterJSON = new Button();
@@ -44,9 +46,11 @@
 			// buttonSave
 			// 
 			buttonSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			buttonSave.BackColor = Color.Lime;
+			buttonSave.BackColor = Color.FromArgb(220, 220, 220);
+			buttonSave.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 			buttonSave.FlatStyle = FlatStyle.Flat;
 			buttonSave.Font = new Font("Segoe UI", 12F);
+			buttonSave.ForeColor = Color.FromArgb(24, 38, 36);
 			buttonSave.Location = new Point(633, 573);
 			buttonSave.Name = "buttonSave";
 			buttonSave.Size = new Size(74, 37);
@@ -58,9 +62,11 @@
 			// buttonCancel
 			// 
 			buttonCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			buttonCancel.BackColor = Color.Red;
+			buttonCancel.BackColor = Color.FromArgb(220, 220, 220);
+			buttonCancel.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 			buttonCancel.FlatStyle = FlatStyle.Flat;
 			buttonCancel.Font = new Font("Segoe UI", 12F);
+			buttonCancel.ForeColor = Color.FromArgb(24, 38, 36);
 			buttonCancel.Location = new Point(713, 573);
 			buttonCancel.Name = "buttonCancel";
 			buttonCancel.Size = new Size(83, 37);
@@ -72,9 +78,11 @@
 			// buttonEnterJSON
 			// 
 			buttonEnterJSON.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			buttonEnterJSON.BackColor = Color.FromArgb(192, 255, 255);
+			buttonEnterJSON.BackColor = Color.FromArgb(220, 220, 220);
+			buttonEnterJSON.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 			buttonEnterJSON.FlatStyle = FlatStyle.Flat;
 			buttonEnterJSON.Font = new Font("Segoe UI", 12F);
+			buttonEnterJSON.ForeColor = Color.FromArgb(24, 38, 36);
 			buttonEnterJSON.Location = new Point(802, 573);
 			buttonEnterJSON.Name = "buttonEnterJSON";
 			buttonEnterJSON.Size = new Size(89, 37);
@@ -89,11 +97,36 @@
 			dataGridViewDocItems.AllowUserToDeleteRows = false;
 			dataGridViewDocItems.AllowUserToResizeRows = false;
 			dataGridViewDocItems.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			dataGridViewDocItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewDocItems.BackgroundColor = Color.FromArgb(234, 234, 224);
+			dataGridViewDocItems.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+			dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = Color.FromArgb(220, 220, 220);
+			dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+			dataGridViewCellStyle1.ForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle1.Padding = new Padding(4, 0, 4, 0);
+			dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(220, 220, 220);
+			dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+			dataGridViewDocItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewDocItems.ColumnHeadersHeight = 27;
+			dataGridViewDocItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+			dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = Color.FromArgb(234, 234, 224);
+			dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
+			dataGridViewCellStyle2.ForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle2.Padding = new Padding(4, 0, 4, 0);
+			dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(177, 212, 224);
+			dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+			dataGridViewDocItems.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewDocItems.EnableHeadersVisualStyles = false;
+			dataGridViewDocItems.GridColor = Color.FromArgb(29, 198, 144);
 			dataGridViewDocItems.Location = new Point(12, 82);
+			dataGridViewDocItems.MultiSelect = false;
 			dataGridViewDocItems.Name = "dataGridViewDocItems";
 			dataGridViewDocItems.ReadOnly = true;
 			dataGridViewDocItems.RowHeadersVisible = false;
+			dataGridViewDocItems.RowTemplate.Height = 24;
 			dataGridViewDocItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dataGridViewDocItems.Size = new Size(879, 485);
 			dataGridViewDocItems.TabIndex = 3;
@@ -104,6 +137,7 @@
 			label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			label1.AutoSize = true;
 			label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			label1.ForeColor = Color.FromArgb(24, 38, 36);
 			label1.Location = new Point(12, 573);
 			label1.Name = "label1";
 			label1.Size = new Size(81, 25);
@@ -115,6 +149,7 @@
 			labelSum.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			labelSum.AutoSize = true;
 			labelSum.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			labelSum.ForeColor = Color.FromArgb(24, 38, 36);
 			labelSum.Location = new Point(99, 573);
 			labelSum.Name = "labelSum";
 			labelSum.Size = new Size(22, 25);
@@ -125,6 +160,7 @@
 			// 
 			label2.AutoSize = true;
 			label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			label2.ForeColor = Color.FromArgb(24, 38, 36);
 			label2.Location = new Point(218, 12);
 			label2.Name = "label2";
 			label2.Size = new Size(99, 25);
@@ -133,7 +169,9 @@
 			// 
 			// textBoxSeller
 			// 
+			textBoxSeller.BackColor = Color.FromArgb(234, 234, 224);
 			textBoxSeller.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			textBoxSeller.ForeColor = Color.FromArgb(24, 38, 36);
 			textBoxSeller.Location = new Point(323, 6);
 			textBoxSeller.Name = "textBoxSeller";
 			textBoxSeller.Size = new Size(271, 33);
@@ -142,6 +180,8 @@
 			// dateTimePickerDate
 			// 
 			dateTimePickerDate.CalendarFont = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			dateTimePickerDate.CalendarForeColor = Color.FromArgb(24, 38, 36);
+			dateTimePickerDate.CalendarMonthBackground = Color.FromArgb(234, 234, 224);
 			dateTimePickerDate.Location = new Point(12, 12);
 			dateTimePickerDate.Name = "dateTimePickerDate";
 			dateTimePickerDate.Size = new Size(200, 25);
@@ -150,9 +190,11 @@
 			// buttonAddDocumentItem
 			// 
 			buttonAddDocumentItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			buttonAddDocumentItem.BackColor = Color.FromArgb(192, 255, 192);
+			buttonAddDocumentItem.BackColor = Color.FromArgb(220, 220, 220);
+			buttonAddDocumentItem.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 			buttonAddDocumentItem.FlatStyle = FlatStyle.Flat;
 			buttonAddDocumentItem.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			buttonAddDocumentItem.ForeColor = Color.FromArgb(24, 38, 36);
 			buttonAddDocumentItem.Location = new Point(860, 6);
 			buttonAddDocumentItem.Name = "buttonAddDocumentItem";
 			buttonAddDocumentItem.Size = new Size(31, 27);
@@ -165,6 +207,7 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 17F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.FromArgb(234, 234, 224);
 			ClientSize = new Size(903, 622);
 			Controls.Add(buttonAddDocumentItem);
 			Controls.Add(dateTimePickerDate);
@@ -176,6 +219,7 @@
 			Controls.Add(buttonEnterJSON);
 			Controls.Add(buttonCancel);
 			Controls.Add(buttonSave);
+			ForeColor = Color.FromArgb(24, 38, 36);
 			MinimumSize = new Size(693, 507);
 			Name = "ExpenseDocumentEditForm";
 			StartPosition = FormStartPosition.CenterScreen;

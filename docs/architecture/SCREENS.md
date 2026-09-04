@@ -71,8 +71,10 @@ Form / IView -> Presenter -> Action -> Application use case
 The normal path between Screens is:
 
 ```text
-Presenter A -> Flow B -> Screen B
+Presenter A -> Flow B -> [Screen B scope: Presenter B + IView/Form B + Screen dependencies]
 ```
+
+`Screen B` denotes the target Screen as a logical presentation module, not a class, file, or folder named `Screen B`. `Flow B` is its external entry point: it creates the Screen's scope through `IScreenScopedExecutor`, resolves `Presenter B` in that scope, and runs it. The Presenter then orchestrates the target Screen through its `IView`.
 
 Application must not depend on or know about Screens, Presenters, Flows, Forms, Views, or ViewModels.
 

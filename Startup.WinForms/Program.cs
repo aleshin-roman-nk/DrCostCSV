@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Presentation.Screens;
 using Presentation.Screens.Main;
+using Presentation.Screens.Main.DatabasePathSettings;
 using Serilog;
 using Serilog.Events;
 
@@ -51,6 +52,23 @@ internal static class Program
 
 		try
 		{
+			var databasePathSettings = new JsonDatabasePathSettingsRepository();
+			if (!databasePathSettings.HasConfiguredDatabasePath())
+			{
+				var setupServices = new ServiceCollection();
+				setupServices.AddWinFormsPresentation();
+				setupServices.AddApplication();
+				setupServices.AddDatabasePathSettings(databasePathSettings);
+
+				using var setupServiceProvider = setupServices.BuildServiceProvider();
+				var setupResult = setupServiceProvider
+					.GetRequiredService<DatabasePathSettingsFlow>()
+					.Run();
+
+				if (!setupResult.IsSuccess)
+					return;
+			}
+
 			var services = new ServiceCollection();
 
 			services.AddLogging(builder =>
@@ -63,14 +81,27 @@ internal static class Program
 			services.AddWinFormsPresentation();
 			services.AddApplication();
 
-			services.AddSqlitePersistence(SqliteDatabasePath.GetConnectionString());
+			services.AddDatabasePathSettings(databasePathSettings);
+			services.AddSqlitePersistence(
+				SqliteDatabasePath.GetConnectionString(databasePathSettings.GetDatabasePath()));
 
 			using var serviceProvider = services.BuildServiceProvider();
 
-			using (var scope = serviceProvider.CreateScope())
+			try
 			{
+				using var scope = serviceProvider.CreateScope();
 				var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 				db.Database.Migrate();
+			}
+			catch (Exception exception)
+			{
+				Log.Error(exception, "Failed to initialize the SQLite database");
+				MessageBox.Show(
+					$"Не удалось открыть или обновить файл базы данных.\n\n{exception.Message}",
+					"Ошибка базы данных",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+				return;
 			}
 
 			var mainPresenter = serviceProvider.GetRequiredService<MainPresenter>();

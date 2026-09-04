@@ -31,6 +31,7 @@
 			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
 			DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
 			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
 			panel1 = new Panel();
 			labelDate = new Label();
 			buttonNewDocument = new Button();
@@ -48,7 +49,7 @@
 			// 
 			// panel1
 			// 
-			panel1.BackColor = Color.LightSkyBlue;
+			panel1.BackColor = Color.FromArgb(234, 234, 224);
 			panel1.Controls.Add(labelDate);
 			panel1.Controls.Add(buttonNewDocument);
 			panel1.Controls.Add(labelSum);
@@ -63,6 +64,7 @@
 			// 
 			labelDate.AutoSize = true;
 			labelDate.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			labelDate.ForeColor = Color.FromArgb(24, 38, 36);
 			labelDate.Location = new Point(12, 9);
 			labelDate.Name = "labelDate";
 			labelDate.Size = new Size(22, 25);
@@ -72,20 +74,24 @@
 			// buttonNewDocument
 			// 
 			buttonNewDocument.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			buttonNewDocument.BackColor = Color.FromArgb(220, 220, 220);
+			buttonNewDocument.FlatAppearance.BorderColor = Color.FromArgb(29, 198, 144);
 			buttonNewDocument.FlatStyle = FlatStyle.Flat;
 			buttonNewDocument.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			buttonNewDocument.ForeColor = Color.FromArgb(24, 38, 36);
 			buttonNewDocument.Location = new Point(744, 3);
 			buttonNewDocument.Name = "buttonNewDocument";
 			buttonNewDocument.Size = new Size(53, 41);
 			buttonNewDocument.TabIndex = 2;
 			buttonNewDocument.Text = "+";
-			buttonNewDocument.UseVisualStyleBackColor = true;
+			buttonNewDocument.UseVisualStyleBackColor = false;
 			buttonNewDocument.Click += buttonNewDocument_Click;
 			// 
 			// labelSum
 			// 
 			labelSum.AutoSize = true;
 			labelSum.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			labelSum.ForeColor = Color.FromArgb(24, 38, 36);
 			labelSum.Location = new Point(172, 40);
 			labelSum.Name = "labelSum";
 			labelSum.Size = new Size(22, 25);
@@ -96,6 +102,7 @@
 			// 
 			label1.AutoSize = true;
 			label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+			label1.ForeColor = Color.FromArgb(24, 38, 36);
 			label1.Location = new Point(12, 40);
 			label1.Name = "label1";
 			label1.Size = new Size(154, 25);
@@ -104,7 +111,7 @@
 			// 
 			// panel2
 			// 
-			panel2.BackColor = Color.FromArgb(192, 255, 192);
+			panel2.BackColor = Color.FromArgb(234, 234, 224);
 			panel2.Controls.Add(dataGridView1);
 			panel2.Dock = DockStyle.Fill;
 			panel2.Location = new Point(0, 86);
@@ -117,31 +124,39 @@
 			dataGridView1.AllowUserToAddRows = false;
 			dataGridView1.AllowUserToDeleteRows = false;
 			dataGridView1.AllowUserToResizeRows = false;
-			dataGridView1.BackgroundColor = Color.Moccasin;
+			dataGridView1.AutoGenerateColumns = false;
+			dataGridView1.BackgroundColor = Color.FromArgb(234, 234, 224);
+			dataGridView1.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 			dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = SystemColors.Control;
-			dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
-			dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle1.BackColor = Color.FromArgb(220, 220, 220);
+			dataGridViewCellStyle1.Font = new Font("Segoe UI", 11F);
+			dataGridViewCellStyle1.ForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle1.Padding = new Padding(4, 0, 4, 0);
+			dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(220, 220, 220);
+			dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
 			dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
 			dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridView1.ColumnHeadersHeight = 27;
+			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
 			dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, Column3Sum, Seller });
 			dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = SystemColors.Window;
-			dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F);
-			dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-			dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+			dataGridViewCellStyle3.BackColor = Color.FromArgb(234, 234, 224);
+			dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F);
+			dataGridViewCellStyle3.ForeColor = Color.FromArgb(24, 38, 36);
+			dataGridViewCellStyle3.Padding = new Padding(4, 0, 4, 0);
+			dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(177, 212, 224);
+			dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(24, 38, 36);
 			dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
 			dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
 			dataGridView1.Dock = DockStyle.Fill;
-			dataGridView1.GridColor = Color.Black;
+			dataGridView1.EnableHeadersVisualStyles = false;
+			dataGridView1.GridColor = Color.FromArgb(29, 198, 144);
 			dataGridView1.Location = new Point(0, 0);
+			dataGridView1.MultiSelect = false;
 			dataGridView1.Name = "dataGridView1";
 			dataGridView1.ReadOnly = true;
 			dataGridView1.RowHeadersVisible = false;
+			dataGridView1.RowTemplate.Height = 24;
 			dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dataGridView1.Size = new Size(800, 364);
 			dataGridView1.TabIndex = 0;
@@ -150,6 +165,8 @@
 			// Date
 			// 
 			Date.DataPropertyName = "Date";
+			dataGridViewCellStyle4.Format = "dd.MM.yyyy";
+			Date.DefaultCellStyle = dataGridViewCellStyle4;
 			Date.HeaderText = "Date";
 			Date.Name = "Date";
 			Date.ReadOnly = true;
@@ -178,9 +195,11 @@
 			// 
 			AutoScaleDimensions = new SizeF(7F, 17F);
 			AutoScaleMode = AutoScaleMode.Font;
+			BackColor = Color.FromArgb(234, 234, 224);
 			ClientSize = new Size(800, 450);
 			Controls.Add(panel2);
 			Controls.Add(panel1);
+			ForeColor = Color.FromArgb(24, 38, 36);
 			Name = "ExpenseDocumentListForm";
 			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Documents";

@@ -1,0 +1,11 @@
+dotnet publish .\Startup.WinForms\Startup.WinForms.csproj ^
+  -c Release ^
+  -r win-x64 ^
+  --self-contained true ^
+  -p:PublishSingleFile=true ^
+  -p:IncludeNativeLibrariesForSelfExtract=true ^
+  -p:EnableCompressionInSingleFile=true ^
+  -p:PublishReadyToRun=false ^
+  -p:DebugType=None ^
+  -p:DebugSymbols=false ^
+  -o .\artifacts\publish\win-x64

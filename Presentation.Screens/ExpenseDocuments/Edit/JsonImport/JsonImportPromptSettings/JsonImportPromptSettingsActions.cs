@@ -4,6 +4,7 @@ using Application.BudgetLines.ManageBudgetLine;
 using Application.BudgetTags;
 using Application.BudgetTags.GetBudgetTags;
 using Application.BudgetTags.ManageBudgetTag;
+using Application.ExpenseDocuments.RecognizeReceipt;
 using Application.JsonImportPromptSettings;
 using Presentation.Screens.Common;
 using Presentation.Screens.ExpenseDocuments.Edit.ViewModels;
@@ -47,6 +48,27 @@ public sealed class JsonImportPromptSettingsActions
 	{
 		var result = useCase.Execute(new SaveJsonImportPromptSettingsCommand { AdditionalInstructions = instructions });
 		return result.IsSuccess ? ActionResult.Success() : ActionResult.Failure(result.Error?.Message ?? "Не удалось сохранить настройки промпта.");
+	});
+
+	public ActionResult<string> BuildPrompt(
+		IReadOnlyList<BudgetLineOptionViewModel> budgetLines,
+		IReadOnlyList<BudgetTagOptionViewModel> budgetTags,
+		string additionalInstructions) => useCaseScopedExecutor.Execute<BuildReceiptPromptUseCase, ActionResult<string>>(useCase =>
+	{
+		var result = useCase.Execute(new BuildReceiptPromptCommand
+		{
+			BudgetLines = budgetLines
+				.Select(x => new BudgetLineDto { Id = x.Id, Name = x.Name })
+				.ToList(),
+			BudgetTags = budgetTags
+				.Select(x => new BudgetTagDto { Id = x.Id, BudgetLineId = x.BudgetLineId, Name = x.Name })
+				.ToList(),
+			AdditionalInstructions = additionalInstructions
+		});
+
+		return result.IsSuccess
+			? ActionResult<string>.Success(result.Value ?? string.Empty)
+			: ActionResult<string>.Failure(result.Error?.Message ?? "Не удалось сформировать промпт.");
 	});
 
 	public ActionResult AddBudgetLine(string name) => Execute<AddBudgetLineUseCase>(useCase => useCase.Execute(name));
