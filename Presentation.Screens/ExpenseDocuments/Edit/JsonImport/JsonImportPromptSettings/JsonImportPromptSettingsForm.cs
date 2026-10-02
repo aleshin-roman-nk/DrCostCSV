@@ -18,6 +18,7 @@ public partial class JsonImportPromptSettingsForm : Form, IJsonImportPromptSetti
 	public JsonImportPromptSettingsForm()
 	{
 		InitializeComponent();
+		WindowIcon.Apply(this);
 		dataGridViewBudgetLines.SelectionChanged += (_, _) => BindBudgetTags();
 	}
 

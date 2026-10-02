@@ -1,5 +1,6 @@
-﻿using Application.ExpenseDocuments.Abstractions;
+using Application.ExpenseDocuments.Abstractions;
 using Application.ExpenseDocuments.GetExpenseDocumentForEdit;
+using Application.ExpenseDocuments.GetDocumentsWithoutCurrency;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,10 @@ namespace Infrastructure.Persistence.Readers
 				.Select(document => new ExpenseDocumentForEditDto
 				{
 					Id = document.Id,
+					CurrencyId = document.CurrencyId,
+					CurrencyValues = document.CurrencyValues
+						.Select(value => new Application.CurrencyDefaults.CurrencyValueDto(value.CurrencyId, value.Value))
+						.ToList(),
 					Date = document.Date,
 					SellerName = document.SellerName ?? string.Empty,
 
@@ -35,17 +40,28 @@ namespace Infrastructure.Persistence.Readers
 							Price = item.Price,
 							Amount = item.Amount,
 							BudgetLineId = item.BudgetLineId,
-							BudgetLineName = item.BudgetLine != null
-								? item.BudgetLine.Name
-								: string.Empty,
+							BudgetLineName = item.BudgetLine.Name,
 							BudgetTagId = item.BudgetTagId,
-							BudgetTagName = item.BudgetTag != null
-								? item.BudgetTag.Name
-								: null
+							BudgetTagName = item.BudgetTag == null
+								? null
+								: item.BudgetTag.Name
 						})
 						.ToList()
 				})
 				.SingleOrDefault();
 		}
+
+		public IReadOnlyList<DocumentWithoutCurrencyDto> GetWithoutCurrency() =>
+			dbContext.ExpenseDocuments
+				.AsNoTracking()
+				.Where(document => document.CurrencyId == null)
+				.OrderByDescending(document => document.Date)
+				.ThenByDescending(document => document.Id)
+				.Select(document => new DocumentWithoutCurrencyDto(
+					document.Id,
+					document.Date,
+					document.SellerName ?? string.Empty,
+					document.Items.Count))
+				.ToList();
 	}
 }

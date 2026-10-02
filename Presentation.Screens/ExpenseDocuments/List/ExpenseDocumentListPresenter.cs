@@ -84,6 +84,7 @@ public class ExpenseDocumentListPresenter
 
 
 			view.SetDocumentTitles(Array.Empty<ExpenseDocumentTitleViewModel>());
+			view.SetDailyTotal("—");
 			return;
 		}
 
@@ -93,6 +94,8 @@ public class ExpenseDocumentListPresenter
 			?? Array.Empty<ExpenseDocumentTitleViewModel>();
 
 		view.SetDocumentTitles(documentTitles);
+		var total = documentListActions.GetDailyTotal(date);
+		view.SetDailyTotal(total.IsSuccess ? total.Data ?? "—" : $"— ({total.Error ?? "нет данных"})");
 	}
 
 }

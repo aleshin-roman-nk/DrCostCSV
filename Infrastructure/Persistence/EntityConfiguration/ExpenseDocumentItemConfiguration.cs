@@ -29,12 +29,13 @@ public sealed class ExpenseDocumentItemConfiguration
 		entity.HasOne(x => x.BudgetLine)
 			.WithMany()
 			.HasForeignKey(x => x.BudgetLineId)
-			.IsRequired(false)
+			.IsRequired()
 			.OnDelete(DeleteBehavior.Restrict);
 
 		entity.HasOne(x => x.BudgetTag)
 			.WithMany()
 			.HasForeignKey(x => x.BudgetTagId)
+			.IsRequired(false)
 			.OnDelete(DeleteBehavior.SetNull);
 	}
 }

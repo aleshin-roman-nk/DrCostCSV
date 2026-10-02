@@ -7,6 +7,7 @@ public partial class DatabasePathSettingsForm : Form, IDatabasePathSettingsView
 	public DatabasePathSettingsForm()
 	{
 		InitializeComponent();
+		WindowIcon.Apply(this);
 	}
 
 	public event Action? SaveRequested;

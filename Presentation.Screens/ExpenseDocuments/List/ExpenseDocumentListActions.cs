@@ -1,6 +1,7 @@
 ﻿using Application.Common;
 using Application.ExpenseDocuments.GetExpenseDocumentForEdit;
 using Application.Reports.GetDocumentTitlesByDay;
+using Application.Reports.GetDailyExpensesByMonth;
 using Microsoft.Extensions.Logging;
 using Presentation.Screens.ExpenseDocuments.Edit.ViewModels;
 using Presentation.Screens.ExpenseDocuments.List.ViewModels;
@@ -53,10 +54,23 @@ public sealed class ExpenseDocumentListActions
 			Id = x.Id,
 			Date = x.Date,
 			Seller = x.Seller,
+			CurrencyCode = x.CurrencyCode,
 			Sum = x.Sum
 		}).ToList();
 
 		return ActionResult<IReadOnlyList<ExpenseDocumentTitleViewModel>>
 				.Success(viewModelResult);
 	}
+
+	public ActionResult<string> GetDailyTotal(DateTime date) =>
+		useCaseScopedExecutor.Execute<GetDailyExpensesByMonthUseCase, ActionResult<string>>(useCase =>
+		{
+			var result = useCase.Execute(new GetDailyExpensesByMonthQuery(date.Year, date.Month));
+			if (!result.IsSuccess || result.Value is null)
+				return ActionResult<string>.Failure(result.Error?.Message ?? "Не удалось рассчитать дневной расход.");
+			var day = result.Value.Days.Single(x => x.Date.Date == date.Date);
+			if (day.ExcludedDocumentCount > 0)
+				return ActionResult<string>.Success($"— (документы без курса: {day.ExcludedDocumentCount})");
+			return ActionResult<string>.Success($"{day.TotalSum:N2} {result.Value.CurrencyCode}");
+		});
 }

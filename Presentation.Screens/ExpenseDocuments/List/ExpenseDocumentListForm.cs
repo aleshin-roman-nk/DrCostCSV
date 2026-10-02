@@ -1,6 +1,7 @@
 ﻿using Presentation.Screens.ExpenseDocuments.Edit.ViewModels;
 using Presentation.Screens.ExpenseDocuments.List.ViewModels;
 using Presentation.Screens.Main.ViewModels;
+using Presentation.Screens.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,10 +21,12 @@ public partial class ExpenseDocumentListForm : Form, IExpenseDocumentListView
 	public ExpenseDocumentListForm()
 	{
 		InitializeComponent();
+		WindowIcon.Apply(this);
 
 		dataGridView1.AutoGenerateColumns = false;
 		dataGridView1.ShowCellToolTips = false;
 		dataGridView1.DataSource = bindingSource;
+		dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
 	}
 
 	public event Action? CreateExpenseDocument;
@@ -51,23 +54,9 @@ public partial class ExpenseDocumentListForm : Form, IExpenseDocumentListView
 	{
 		bindingSource.DataSource = items;
 		bindingSource.ResetBindings(false);
-
-		UpdateSum();
 	}
 
-	private void UpdateSum()
-	{
-		if (bindingSource.DataSource
-			is not IEnumerable<ExpenseDocumentTitleViewModel> items)
-		{
-			labelSum.Text = 0m.ToString("N2");
-			return;
-		}
-
-		var sum = items.Sum(x => x.Sum);
-
-		labelSum.Text = sum.ToString("N2");
-	}
+	public void SetDailyTotal(string total) => labelSum.Text = total;
 
 	public void SetDate(DateTime dt)
 	{
@@ -77,6 +66,13 @@ public partial class ExpenseDocumentListForm : Form, IExpenseDocumentListView
 	public void ShowError(string msg)
 	{
 		MessageBox.Show(msg);
+	}
+
+	private void dataGridView1_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+	{
+		if (e.RowIndex >= 0 &&
+			dataGridView1.Rows[e.RowIndex].DataBoundItem is ExpenseDocumentTitleViewModel row)
+			OpenExpenseDocument?.Invoke(row.Id);
 	}
 
 	private void dataGridView1_KeyDown(object sender, KeyEventArgs e)

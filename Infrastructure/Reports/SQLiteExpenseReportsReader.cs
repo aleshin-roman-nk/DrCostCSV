@@ -3,6 +3,7 @@ using Application.Reports.Abstractions;
 using Application.Reports.GetDailyExpensesByMonth;
 using Application.Reports.GetDocumentTitlesByDay;
 using Application.Reports.GetBudgetLineExpensesByMonth;
+using Application.Reports;
 using Domain;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -27,22 +28,11 @@ public class SQLiteExpenseReportsReader : IExpenseReportsReader
 		this.logger = logger;
 	}
 
-	public IReadOnlyList<DailyExpenseDto> GetDailyExpensesByMonth(int year, int month)
+	public MonthlyReportReadResult<DailyExpenseDto> GetDailyExpensesByMonth(
+		int year, int month, int reportCurrencyId)
 	{
-		var from = new DateTime(year, month, 1);
-		var to = from.AddMonths(1);
-
-		var expensesByDate = db.Set<ExpenseDocumentItem>()
-			.AsNoTracking()
-			.Where(item =>
-				item.ExpenseDocument.Date >= from &&
-				item.ExpenseDocument.Date < to)
-			.Select(item => new
-			{
-				Date = item.ExpenseDocument.Date,
-				Sum = item.Price * item.Amount
-			})
-			.ToList()
+		var expenses = LoadConvertedExpenses(year, month, reportCurrencyId);
+		var expensesByDate = expenses.Rows
 			.GroupBy(x => x.Date.Date)
 			.ToDictionary(
 				group => group.Key,
@@ -61,11 +51,12 @@ public class SQLiteExpenseReportsReader : IExpenseReportsReader
 				Date = date,
 				TotalSum = expensesByDate.TryGetValue(date, out var totalSum)
 					? totalSum
-					: 0m
+					: 0m,
+				ExcludedDocumentCount = expenses.ExcludedDocumentsByDate.GetValueOrDefault(date)
 			});
 		}
 
-		return result;
+		return new(result, expenses.ExcludedDocumentCount);
 	}
 
 	public IReadOnlyList<DocumentTitleDto> GetDocumentTitlesByDay(DateTime dt)
@@ -81,6 +72,10 @@ public class SQLiteExpenseReportsReader : IExpenseReportsReader
 				Id = x.Id,
 				Date = x.Date,
 				Seller = x.SellerName,
+				CurrencyCode = db.Currencies
+					.Where(currency => currency.Id == x.CurrencyId)
+					.Select(currency => currency.Code)
+					.FirstOrDefault(),
 				Sum = x.Items.Sum(i => i.Price * i.Amount)
 			})
 			.OrderBy(x => x.Date)
@@ -89,23 +84,12 @@ public class SQLiteExpenseReportsReader : IExpenseReportsReader
 		return result;
 	}
 
-	public IReadOnlyList<BudgetLineExpenseDto> GetBudgetLineExpensesByMonth(int year, int month)
+	public MonthlyReportReadResult<BudgetLineExpenseDto> GetBudgetLineExpensesByMonth(
+		int year, int month, int reportCurrencyId)
 	{
-		var from = new DateTime(year, month, 1);
-		var to = from.AddMonths(1);
+		var expenses = LoadConvertedExpenses(year, month, reportCurrencyId);
 
-		var items = db.ExpenseDocumentItems
-			.AsNoTracking()
-			.Where(item => item.ExpenseDocument.Date >= from && item.ExpenseDocument.Date < to)
-			.Select(item => new
-			{
-				BudgetLineName = item.BudgetLine.Name,
-				BudgetTagName = item.BudgetTag == null ? null : item.BudgetTag.Name,
-				Sum = item.Price * item.Amount
-			})
-			.ToList();
-
-		return items
+		var rows = expenses.Rows
 			.GroupBy(item => item.BudgetLineName)
 			.OrderBy(group => group.Key)
 			.Select(group => new BudgetLineExpenseDto
@@ -124,5 +108,61 @@ public class SQLiteExpenseReportsReader : IExpenseReportsReader
 					.ToList()
 			})
 			.ToList();
+		return new(rows, expenses.ExcludedDocumentCount);
 	}
+
+	private ConvertedExpenses LoadConvertedExpenses(int year, int month, int reportCurrencyId)
+	{
+		var from = new DateTime(year, month, 1);
+		var to = from.AddMonths(1);
+		var documents = db.ExpenseDocuments
+			.AsNoTracking()
+			.AsSplitQuery()
+			.Where(document => document.Date >= from && document.Date < to)
+			.Include(document => document.CurrencyValues)
+			.Include(document => document.Items).ThenInclude(item => item.BudgetLine)
+			.Include(document => document.Items).ThenInclude(item => item.BudgetTag)
+			.ToList();
+
+		var rows = new List<ConvertedExpenseRow>();
+		var excludedDocumentCount = 0;
+		var excludedDocumentsByDate = new Dictionary<DateTime, int>();
+		foreach (var document in documents)
+		{
+			if (document.Items.Count == 0)
+				continue;
+
+			decimal factor;
+			if (document.CurrencyId == reportCurrencyId)
+			{
+				factor = 1m;
+			}
+			else
+			{
+				var source = document.CurrencyValues
+					.FirstOrDefault(value => value.CurrencyId == document.CurrencyId);
+				var target = document.CurrencyValues
+					.FirstOrDefault(value => value.CurrencyId == reportCurrencyId);
+				if (source is null || target is null || source.Value <= 0 || target.Value <= 0)
+				{
+					excludedDocumentCount++;
+					excludedDocumentsByDate[document.Date.Date] =
+						excludedDocumentsByDate.GetValueOrDefault(document.Date.Date) + 1;
+					continue;
+				}
+				factor = target.Value / source.Value;
+			}
+
+			rows.AddRange(document.Items.Select(item => new ConvertedExpenseRow(
+				document.Date, item.BudgetLine.Name, item.BudgetTag?.Name,
+				item.Price * item.Amount * factor)));
+		}
+		return new(rows, excludedDocumentCount, excludedDocumentsByDate);
+	}
+
+	private sealed record ConvertedExpenseRow(
+		DateTime Date, string BudgetLineName, string? BudgetTagName, decimal Sum);
+	private sealed record ConvertedExpenses(
+		IReadOnlyList<ConvertedExpenseRow> Rows, int ExcludedDocumentCount,
+		IReadOnlyDictionary<DateTime, int> ExcludedDocumentsByDate);
 }

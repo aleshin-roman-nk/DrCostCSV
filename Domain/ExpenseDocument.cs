@@ -14,6 +14,20 @@ public sealed class ExpenseDocument
 
 	public string? Comment { get; private set; }
 
+	/// <summary>
+	/// Currency of all item prices and the document total; null when not specified.
+	/// </summary>
+	public int? CurrencyId { get; private set; }
+
+	private readonly List<CurrencyValue> currencyValues = [];
+	public IReadOnlyList<CurrencyValue> CurrencyValues => currencyValues.AsReadOnly();
+
+	public void SetCurrencyValues(int? currencyId, IEnumerable<CurrencyValue> values)
+	{
+		CurrencyValue.ReplaceScale(currencyValues, currencyId, values);
+		CurrencyId = currencyId;
+	}
+
 	private readonly List<ExpenseDocumentItem> items = [];
 
 	public IReadOnlyList<ExpenseDocumentItem> Items => items;
@@ -47,18 +61,26 @@ public sealed class ExpenseDocument
 		SellerName = sellerName;
 	}
 
+	public void ChangeCurrency(int currencyId)
+	{
+		if (currencyId <= 0)
+			throw new ArgumentOutOfRangeException(nameof(currencyId), "Currency identifier must be greater than zero.");
+
+		if (currencyValues.Count > 0 && !currencyValues.Any(value => value.CurrencyId == currencyId))
+			throw new ArgumentException("The scale must contain the document currency.", nameof(currencyId));
+
+		CurrencyId = currencyId;
+	}
+
 	public void AddItem(
 		string name,
 		decimal price,
 		decimal amount,
-		int? budgetLineId,
+		int budgetLineId,
 		int? budgetTagId = null)
 	{
 		if (string.IsNullOrWhiteSpace(name))
 			throw new ArgumentException("Item name is required.", nameof(name));
-
-		if (price < 0)
-			throw new ArgumentOutOfRangeException(nameof(price), "Price cannot be negative.");
 
 		if (amount <= 0)
 			throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be greater than zero.");
@@ -79,7 +101,7 @@ public sealed class ExpenseDocument
 	string name,
 	decimal price,
 	decimal amount,
-	int? budgetLineId,
+	int budgetLineId,
 	int? budgetTagId)
 	{
 		var item = items.SingleOrDefault(x => x.Id == itemId);

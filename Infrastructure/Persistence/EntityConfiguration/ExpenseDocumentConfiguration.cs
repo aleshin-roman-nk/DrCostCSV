@@ -14,8 +14,25 @@ public sealed class ExpenseDocumentConfiguration
 	{
 		entity.HasKey(x => x.Id);
 
+		entity.HasOne<Currency>()
+			.WithMany()
+			.HasForeignKey(x => x.CurrencyId)
+			.OnDelete(DeleteBehavior.Restrict);
+
 		entity.Property(x => x.Date)
 			.IsRequired();
+
+		entity.OwnsMany(document => document.CurrencyValues, values =>
+		{
+			values.ToTable("ExpenseDocumentCurrencyValues");
+			values.WithOwner().HasForeignKey("ExpenseDocumentId");
+			values.HasKey("ExpenseDocumentId", nameof(CurrencyValue.CurrencyId));
+			values.Property(value => value.CurrencyId).ValueGeneratedNever();
+			values.Property(value => value.Value).IsRequired();
+			values.HasOne<Currency>().WithMany().HasForeignKey(value => value.CurrencyId)
+				.OnDelete(DeleteBehavior.Restrict);
+		});
+		entity.Navigation(document => document.CurrencyValues).UsePropertyAccessMode(PropertyAccessMode.Field);
 
 		entity.Property(x => x.Comment)
 			.HasMaxLength(500);

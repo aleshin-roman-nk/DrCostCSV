@@ -1,13 +1,18 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Presentation.Screens.ExpenseDocuments.Edit;
 using Presentation.Screens.ExpenseDocuments.Edit.ViewModels;
 using Presentation.Screens.ExpenseDocuments.Edit.Item;
+using Presentation.Screens.ExpenseDocuments.Edit.Currency;
+using Presentation.Screens.ExpenseDocuments.WithoutCurrency;
 using Presentation.Screens.ExpenseDocuments.Edit.JsonImport;
 using Presentation.Screens.ExpenseDocuments.Edit.JsonImport.JsonImportPromptSettings;
 using Presentation.Screens.ExpenseDocuments.List;
 using Presentation.Screens.Common;
 using Presentation.Screens.Main;
 using Presentation.Screens.Main.DatabasePathSettings;
+using Presentation.Screens.Currencies.List;
+using Presentation.Screens.Currencies.Edit;
+using Presentation.Screens.CurrencyDefaults;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -33,6 +38,18 @@ public static class DependencyInjection
 			.AddSingleton<IMainView>(sp => sp.GetRequiredService<MainForm>())
 			.AddSingleton<MainPresenter>()
 			.AddSingleton<MainActions>()
+			.AddSingleton<CurrencyListFlow>()
+			.AddScoped<ICurrencyListView, CurrencyListForm>()
+			.AddScoped<CurrencyListPresenter>()
+			.AddScoped<CurrencyListActions>()
+			.AddSingleton<CurrencyEditFlow>()
+			.AddScoped<ICurrencyEditView, CurrencyEditForm>()
+			.AddScoped<CurrencyEditPresenter>()
+			.AddScoped<CurrencyEditActions>()
+			.AddSingleton<CurrencyDefaultsFlow>()
+			.AddScoped<ICurrencyDefaultsView, CurrencyDefaultsForm>()
+			.AddScoped<CurrencyDefaultsPresenter>()
+			.AddScoped<CurrencyDefaultsActions>()
 			.AddSingleton<DatabasePathSettingsFlow>()
 			.AddScoped<IDatabasePathSettingsView, DatabasePathSettingsForm>()
 			.AddScoped<DatabasePathSettingsPresenter>()
@@ -41,6 +58,9 @@ public static class DependencyInjection
 			.AddSingleton<ExpenseDocumentEditFlow>()
 			.AddScoped<IExpenseDocumentEditView, ExpenseDocumentEditForm>()
 			.AddScoped<ExpenseDocumentEditPresenter>()
+			.AddSingleton<ExpenseDocumentCurrencyEditFlow>()
+			.AddScoped<IExpenseDocumentCurrencyEditView, ExpenseDocumentCurrencyEditForm>()
+			.AddScoped<ExpenseDocumentCurrencyEditPresenter>()
 			.AddScoped<ExpenseDocumentEditActions>()
 			.AddScoped<IViewModelVerifier<ExpenseDocumentViewModel>, ExpenseDocumentViewModelVerifier>()
 			.AddSingleton<IExpenseDocumentJsonImportFlow, ExpenseDocumentJsonImportFlow>()
@@ -54,6 +74,12 @@ public static class DependencyInjection
 			.AddSingleton<ExpenseDocumentItemEditFlow>()
 			.AddScoped<ExpenseDocumentItemEditPresenter>()
 			.AddScoped<IExpenseDocumentItemEditView, ExpenseDocumentItemEditForm>()
+			.AddScoped<IViewModelVerifier<ExpenseDocumentItemViewModel>, ExpenseDocumentItemViewModelVerifier>()
+
+			.AddSingleton<WithoutCurrencyFlow>()
+			.AddScoped<IWithoutCurrencyView, WithoutCurrencyForm>()
+			.AddScoped<WithoutCurrencyPresenter>()
+			.AddScoped<WithoutCurrencyActions>()
 
 			.AddSingleton<ExpenseDocumentListFlow>()
 			.AddScoped<IExpenseDocumentListView, ExpenseDocumentListForm>()

@@ -8,6 +8,8 @@ namespace Infrastructure.Persistence;
 
 public class AppDbContext: DbContext
 {
+	public DbSet<Currency> Currencies => Set<Currency>();
+	public DbSet<CurrencyDefaultSettings> CurrencyDefaultSettings => Set<CurrencyDefaultSettings>();
 	public DbSet<ExpenseDocument> ExpenseDocuments => Set<ExpenseDocument>();
 	public DbSet<ExpenseDocumentItem> ExpenseDocumentItems => Set<ExpenseDocumentItem>();
 	public DbSet<BudgetLine> BudgetLines => Set<BudgetLine>();

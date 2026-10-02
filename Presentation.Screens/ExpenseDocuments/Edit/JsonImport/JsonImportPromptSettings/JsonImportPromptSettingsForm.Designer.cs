@@ -104,9 +104,9 @@ partial class JsonImportPromptSettingsForm
 		dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
 		dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
 		dataGridViewBudgetLines.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-		dataGridViewBudgetLines.ColumnHeadersHeight = 27;
-		dataGridViewBudgetLines.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+		dataGridViewBudgetLines.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 		dataGridViewBudgetLines.Columns.AddRange(new DataGridViewColumn[] { columnBudgetLine });
+		dataGridViewBudgetLines.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 		dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
 		dataGridViewCellStyle2.BackColor = Color.FromArgb(234, 234, 224);
 		dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
@@ -125,6 +125,7 @@ partial class JsonImportPromptSettingsForm
 		dataGridViewBudgetLines.RowHeadersVisible = false;
 		dataGridViewBudgetLines.RowTemplate.Height = 24;
 		dataGridViewBudgetLines.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+		dataGridViewBudgetLines.ShowCellToolTips = false;
 		dataGridViewBudgetLines.Size = new Size(414, 153);
 		dataGridViewBudgetLines.TabIndex = 0;
 		// columnBudgetLine
@@ -200,9 +201,9 @@ partial class JsonImportPromptSettingsForm
 		dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(24, 38, 36);
 		dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
 		dataGridViewBudgetTags.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-		dataGridViewBudgetTags.ColumnHeadersHeight = 27;
-		dataGridViewBudgetTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+		dataGridViewBudgetTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 		dataGridViewBudgetTags.Columns.AddRange(new DataGridViewColumn[] { columnBudgetTag });
+		dataGridViewBudgetTags.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 		dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
 		dataGridViewCellStyle4.BackColor = Color.FromArgb(234, 234, 224);
 		dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
@@ -221,6 +222,7 @@ partial class JsonImportPromptSettingsForm
 		dataGridViewBudgetTags.RowHeadersVisible = false;
 		dataGridViewBudgetTags.RowTemplate.Height = 24;
 		dataGridViewBudgetTags.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+		dataGridViewBudgetTags.ShowCellToolTips = false;
 		dataGridViewBudgetTags.Size = new Size(414, 153);
 		dataGridViewBudgetTags.TabIndex = 0;
 		// columnBudgetTag
@@ -278,6 +280,7 @@ partial class JsonImportPromptSettingsForm
 		groupBoxInstructions.TabStop = false;
 		groupBoxInstructions.Text = "Дополнительные правила для ИИ (необязательно)";
 		// textBoxAdditionalInstructions
+		textBoxAdditionalInstructions.AcceptsReturn = true;
 		textBoxAdditionalInstructions.BackColor = Color.FromArgb(234, 234, 224);
 		textBoxAdditionalInstructions.Dock = DockStyle.Fill;
 		textBoxAdditionalInstructions.Font = new Font("Segoe UI", 10F);

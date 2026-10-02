@@ -6,6 +6,8 @@ namespace Application.ExpenseDocuments.UpdateExpenseDocument
 {
 	public class UpdateExpenseDocumentCommand
 	{
+		public int? CurrencyId { get; init; }
+		public IReadOnlyList<Application.CurrencyDefaults.CurrencyValueDto>? CurrencyValues { get; init; }
 		public int DocumentId { get; init; }
 
 		public DateTime Date { get; init; }

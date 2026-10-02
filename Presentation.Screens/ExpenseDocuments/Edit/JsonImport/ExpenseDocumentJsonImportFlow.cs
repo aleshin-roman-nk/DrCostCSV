@@ -16,11 +16,11 @@ public sealed class ExpenseDocumentJsonImportFlow : IExpenseDocumentJsonImportFl
 		this.screenScopedExecutor = screenScopedExecutor;
 	}
 
-	public ScreenResult<IReadOnlyList<ExpenseDocumentItemFromJson>> GetList()
+	public ScreenResult<ExpenseDocumentFromJson> GetDocument()
 	{
 		return screenScopedExecutor.Execute<
 			ExpenseDocumentJsonImportPresenter,
-			ScreenResult<IReadOnlyList<ExpenseDocumentItemFromJson>>>(
-			presenter => presenter.GetList());
+			ScreenResult<ExpenseDocumentFromJson>>(
+			presenter => presenter.GetDocument());
 	}
 }

@@ -29,27 +29,29 @@ public sealed class ExpenseDocumentJsonImportPresenter
 		view.ReceiptRecognitionCancellationRequested += () => recognitionCancellation?.Cancel();
 	}
 
-	public ScreenResult<IReadOnlyList<ExpenseDocumentItemFromJson>> GetList()
+	public ScreenResult<ExpenseDocumentFromJson> GetDocument()
 	{
 		if (view.ShowModal() != ModalResult.Ok)
 		{
-			return ScreenResult<IReadOnlyList<ExpenseDocumentItemFromJson>>
+			return ScreenResult<ExpenseDocumentFromJson>
 				.Cancelled();
 		}
 
 		try
 		{
-			var items = JsonSerializer.Deserialize<List<ExpenseDocumentItemFromJson>>(
+			var document = JsonSerializer.Deserialize<ExpenseDocumentFromJson>(
 				view.GetJson(),
 				jsonSerializerOptions);
+			if (document is null || document.Items is null || document.Items.Any(item => item is null))
+				throw new JsonException();
 
-			return ScreenResult<IReadOnlyList<ExpenseDocumentItemFromJson>>
-				.Success(items ?? []);
+			return ScreenResult<ExpenseDocumentFromJson>
+				.Success(document);
 		}
 		catch (JsonException)
 		{
-			return ScreenResult<IReadOnlyList<ExpenseDocumentItemFromJson>>
-				.Failure("Неверный формат JSON. Ожидается массив позиций документа.");
+			return ScreenResult<ExpenseDocumentFromJson>
+				.Failure("Неверный формат JSON. Ожидается объект с Date (дата YYYY-MM-DD или null) и Items (массив позиций документа).");
 		}
 	}
 
@@ -71,7 +73,7 @@ public sealed class ExpenseDocumentJsonImportPresenter
 		{
 			var result = await actions.RecognizeAsync(view.GetOpenAiApiKey(), view.GetSelectedModel(), image, view.GetReceiptImageMediaType(), cancellation.Token);
 			if (!result.IsSuccess) { view.ShowError(result.Error ?? "Не удалось распознать чек."); return; }
-			view.SetJson(result.Json ?? "[]");
+			view.SetJson(result.Json ?? "{\"Date\":null,\"Items\":[]}");
 		}
 		catch (OperationCanceledException) { }
 		finally { recognitionCancellation = null; view.SetRecognitionInProgress(false); }

@@ -58,6 +58,51 @@ namespace Infrastructure.Migrations
                     b.ToTable("BudgetTags", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Currency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("Currencies");
+                });
+
+            modelBuilder.Entity("Domain.CurrencyDefaultSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DocumentCurrencyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("ReportCurrencyId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DocumentCurrencyId");
+
+                    b.HasIndex("ReportCurrencyId");
+
+                    b.ToTable("CurrencyDefaultSettings", (string)null);
+                });
+
             modelBuilder.Entity("Domain.ExpenseDocument", b =>
                 {
                     b.Property<int>("Id")
@@ -68,6 +113,9 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("CurrencyId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
@@ -75,6 +123,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrencyId");
 
                     b.ToTable("ExpenseDocuments");
                 });
@@ -88,7 +138,7 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,3)");
 
-                    b.Property<int?>("BudgetLineId")
+                    b.Property<int>("BudgetLineId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("BudgetTagId")
@@ -143,12 +193,92 @@ namespace Infrastructure.Migrations
                     b.Navigation("BudgetLine");
                 });
 
+            modelBuilder.Entity("Domain.CurrencyDefaultSettings", b =>
+                {
+                    b.HasOne("Domain.Currency", null)
+                        .WithMany()
+                        .HasForeignKey("DocumentCurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Currency", null)
+                        .WithMany()
+                        .HasForeignKey("ReportCurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.OwnsMany("Domain.CurrencyValue", "CurrencyValues", b1 =>
+                        {
+                            b1.Property<int>("SettingsId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("CurrencyId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("SettingsId", "CurrencyId");
+
+                            b1.HasIndex("CurrencyId");
+
+                            b1.ToTable("DefaultCurrencyValues", (string)null);
+
+                            b1.HasOne("Domain.Currency", null)
+                                .WithMany()
+                                .HasForeignKey("CurrencyId")
+                                .OnDelete(DeleteBehavior.Restrict)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("SettingsId");
+                        });
+
+                    b.Navigation("CurrencyValues");
+                });
+
+            modelBuilder.Entity("Domain.ExpenseDocument", b =>
+                {
+                    b.HasOne("Domain.Currency", null)
+                        .WithMany()
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.OwnsMany("Domain.CurrencyValue", "CurrencyValues", b1 =>
+                        {
+                            b1.Property<int>("ExpenseDocumentId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("CurrencyId")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<decimal>("Value")
+                                .HasColumnType("TEXT");
+
+                            b1.HasKey("ExpenseDocumentId", "CurrencyId");
+
+                            b1.HasIndex("CurrencyId");
+
+                            b1.ToTable("ExpenseDocumentCurrencyValues", (string)null);
+
+                            b1.HasOne("Domain.Currency", null)
+                                .WithMany()
+                                .HasForeignKey("CurrencyId")
+                                .OnDelete(DeleteBehavior.Restrict)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("ExpenseDocumentId");
+                        });
+
+                    b.Navigation("CurrencyValues");
+                });
+
             modelBuilder.Entity("Domain.ExpenseDocumentItem", b =>
                 {
                     b.HasOne("Domain.BudgetLine", "BudgetLine")
                         .WithMany()
                         .HasForeignKey("BudgetLineId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Domain.BudgetTag", "BudgetTag")
                         .WithMany()

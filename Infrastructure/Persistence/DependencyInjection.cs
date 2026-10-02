@@ -1,13 +1,13 @@
 using Application.BudgetLines.Abstractions;
-using Application.BudgetLines.GetBudgetLines;
 using Application.BudgetTags.Abstractions;
-using Application.BudgetTags.GetBudgetTags;
 using Application.Common.Abstractions.Persistence;
 using Application.ExpenseDocuments.Abstractions;
 using Application.ExpenseDocuments.Abstractions.Persistence;
 using Application.Reports.Abstractions;
 using Application.JsonImportPromptSettings.Abstractions;
 using Application.DatabasePathSettings.Abstractions;
+using Application.Currencies.Abstractions;
+using Application.CurrencyDefaults.Abstractions;
 using Infrastructure.Persistence.Readers;
 using Infrastructure.Persistence.Repositories;
 using Infrastructure.Reports;
@@ -31,13 +31,14 @@ public static class DependencyInjection
 	{
 		services.AddDbContext<AppDbContext>(options => options.UseSqlite(connectionString));
 		services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+		services.AddScoped<ICurrencyRepository, EfCurrencyRepository>();
+		services.AddScoped<ICurrencyReader, EfCurrencyReader>();
+		services.AddScoped<ICurrencyDefaultSettingsRepository, EfCurrencyDefaultSettingsRepository>();
 		services.AddScoped<IExpenseDocumentRepository, ExpenseDocumentRepositorySQLite>();
 		services.AddScoped<IExpenseReportsReader, SQLiteExpenseReportsReader>();
 		services.AddScoped<IBudgetLineReader, EfBudgetLineReader>();
-		services.AddScoped<GetBudgetLinesUseCase>();
 		services.AddScoped<IBudgetLineRepository, EfBudgetLineRepository>();
 		services.AddScoped<IBudgetTagReader, EfBudgetTagReader>();
-		services.AddScoped<GetBudgetTagsUseCase>();
 		services.AddScoped<IBudgetTagRepository, EfBudgetTagRepository>();
 		services.AddScoped<IExpenseDocumentReader, ExpenseDocumentReader>();
 		services.AddSingleton(new HttpClient());

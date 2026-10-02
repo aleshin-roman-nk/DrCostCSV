@@ -5,9 +5,12 @@ namespace Presentation.Screens.ExpenseDocuments.Edit.Item;
 
 public interface IExpenseDocumentItemEditView
 {
+	event Action SaveRequested;
+
 	void SetItem(ExpenseDocumentItemViewModel itemViewModel);
 	ExpenseDocumentItemViewModel GetItem();
 	void SetBudgetLines(IReadOnlyList<BudgetLineOptionViewModel> budgetLines);
 	void SetBudgetTags(IReadOnlyList<BudgetTagOptionViewModel> budgetTags);
 	ModalResult ShowModal();
+	void CloseWithOk();
 }

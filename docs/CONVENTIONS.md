@@ -14,7 +14,10 @@ These are initial implementation conventions derived from the current repository
 
 ## Dependency injection
 
-- Keep registrations in the owning project's `DependencyInjection` extension and compose them in `Startup.WinForms`.
+- Follow the normative registration ownership rule in `docs/architecture/ARCHITECTURE.md`.
+- Keep every registration in the `DependencyInjection` extension of the project that owns the concrete implementation. Do not place it in a dependency or consumer project for convenience.
+- Determine ownership from the implementation: use cases belong to Application; repository, reader, persistence, and external-adapter implementations belong to Infrastructure; Forms, Views, Presenters, Actions, and Flows belong to Presentation.
+- Keep `Startup.WinForms` as the composition root: call the project-level registration extensions there instead of repeating their individual registrations.
 - Match a service's registration lifetime to the documented scope rules. If those rules are unresolved for the change, do not guess; record the question.
 - Register an interface mapping when callers depend on an interface. When a singleton Form is also used through an interface, map both resolutions to the same instance if that is required by the screen.
 

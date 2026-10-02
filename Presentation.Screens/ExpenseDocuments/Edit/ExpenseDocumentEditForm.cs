@@ -20,12 +20,14 @@ public partial class ExpenseDocumentEditForm : Form, IExpenseDocumentEditView
 	public event Action<ExpenseDocumentItemViewModel>? EditDocumentItemRequested;
 	public event Action<ExpenseDocumentItemViewModel>? DeleteDocumentItemRequested;
 	public event Action? NewDocumentItemRequested;
+	public event Action? EditCurrencyRequested;
 
 	private BindingSource bs = new();
 
 	public ExpenseDocumentEditForm()
 	{
 		InitializeComponent();
+		WindowIcon.Apply(this);
 
 		dataGridViewDocItems.ShowCellToolTips = false;
 		dataGridViewDocItems.AutoGenerateColumns = false;
@@ -33,6 +35,7 @@ public partial class ExpenseDocumentEditForm : Form, IExpenseDocumentEditView
 		ExpenseDocumentItemsGridSetup.Apply(dataGridViewDocItems);
 
 		dataGridViewDocItems.DataSource = bs;
+		dataGridViewDocItems.CellDoubleClick += dataGridViewDocItems_CellDoubleClick;
 	}
 
 	public ModalResult ShowModal()
@@ -54,12 +57,20 @@ public partial class ExpenseDocumentEditForm : Form, IExpenseDocumentEditView
 		BindItems(document.Items);
 	}
 
-	public void ApplyInputToDocument()
+	public void SetCurrencySummary(string summary) => labelCurrencySummary.Text = summary;
+
+	public void SetDocumentDate(DateTime date)
+	{
+		dateTimePickerDate.Value = date.Date;
+		RequireDocument().Date = date.Date;
+	}
+
+	public bool ApplyInputToDocument()
 	{
 		var currentDocument = RequireDocument();
-
 		currentDocument.Seller = textBoxSeller.Text.Trim();
 		currentDocument.Date = dateTimePickerDate.Value.Date;
+		return true;
 	}
 
 	public void ShowError(string message)
@@ -132,6 +143,13 @@ public partial class ExpenseDocumentEditForm : Form, IExpenseDocumentEditView
 		Close();
 	}
 
+	private void dataGridViewDocItems_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+	{
+		if (e.RowIndex >= 0 &&
+			dataGridViewDocItems.Rows[e.RowIndex].DataBoundItem is ExpenseDocumentItemViewModel row)
+			EditDocumentItemRequested?.Invoke(row);
+	}
+
 	private void dataGridViewDocItems_KeyDown(object sender, KeyEventArgs e)
 	{
 		if (e.KeyCode == Keys.Enter)
@@ -177,4 +195,6 @@ public partial class ExpenseDocumentEditForm : Form, IExpenseDocumentEditView
 	{
 		NewDocumentItemRequested?.Invoke();
 	}
+
+	private void buttonEditCurrency_Click(object? sender, EventArgs e) => EditCurrencyRequested?.Invoke();
 }

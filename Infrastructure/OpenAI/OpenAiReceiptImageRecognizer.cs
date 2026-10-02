@@ -26,6 +26,6 @@ public sealed class OpenAiReceiptImageRecognizer : IReceiptImageRecognizer
 		using var document = JsonDocument.Parse(text);
 		var output = document.RootElement.GetProperty("output").EnumerateArray().SelectMany(x => x.GetProperty("content").EnumerateArray()).FirstOrDefault(x => x.GetProperty("type").GetString() == "output_text");
 		if (output.ValueKind == JsonValueKind.Undefined || !output.TryGetProperty("text", out var json)) return ReceiptRecognitionResult.Failure("OpenAI не вернул текст распознавания.");
-		return ReceiptRecognitionResult.Success(json.GetString() ?? "[]");
+		return ReceiptRecognitionResult.Success(json.GetString() ?? "{\"Date\":null,\"Items\":[]}");
 	}
 }

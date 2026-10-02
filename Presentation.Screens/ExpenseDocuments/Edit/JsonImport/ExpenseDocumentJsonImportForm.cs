@@ -21,6 +21,7 @@ public partial class ExpenseDocumentJsonImportForm : Form, IExpenseDocumentJsonI
 	public ExpenseDocumentJsonImportForm()
 	{
 		InitializeComponent();
+		WindowIcon.Apply(this);
 	}
 
 	public ModalResult ShowModal()

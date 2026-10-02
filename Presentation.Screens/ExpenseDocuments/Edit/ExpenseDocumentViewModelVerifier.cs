@@ -29,6 +29,9 @@ public sealed class ExpenseDocumentViewModelVerifier
 			if (string.IsNullOrWhiteSpace(item.Name))
 				result.Errors.Add($"Строка {index + 1}: укажите наименование.");
 
+			if (!item.BudgetLineId.HasValue && string.IsNullOrWhiteSpace(item.BudgetLineName))
+				result.Errors.Add($"Строка {index + 1}: укажите строку бюджета.");
+
 		}
 
 		return result;

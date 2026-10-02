@@ -21,6 +21,7 @@ namespace Infrastructure.Persistence.Repositories
 		public ExpenseDocument? GetById(int id)
 		{
 			return db.ExpenseDocuments
+				.Include(document => document.CurrencyValues)
 				.Include(document => document.Items)
 					.ThenInclude(item => item.BudgetTag)
 				.SingleOrDefault(document => document.Id == id);

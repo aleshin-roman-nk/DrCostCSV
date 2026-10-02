@@ -1,6 +1,8 @@
 <Solution>
   <Project Path="Application/Application.csproj" Id="55b317a8-33e3-4c94-8b09-57a617320b5e" />
   <Project Path="Domain/Domain.csproj" Id="09d5c120-5d3c-40b7-a402-ca85e8029f29" />
+  <Project Path="Domain.Tests/Domain.Tests.csproj" />
+  <Project Path="Infrastructure.Tests/Infrastructure.Tests.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" Id="ab976171-2944-42cd-a5b0-adab30f9342a" />
   <Project Path="Presentation.Screens/Presentation.Screens.csproj" Id="d9e738eb-d029-4b18-8082-ba4c7196ccaf" />
   <Project Path="Startup.WinForms/Startup.WinForms.csproj" Id="6e0086a7-7994-4398-a2e0-fcd1500729fb" />

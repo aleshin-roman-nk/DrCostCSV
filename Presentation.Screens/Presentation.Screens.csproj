@@ -16,4 +16,10 @@
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="..\images\fe.ico"
+                      Link="Resources\fe.ico"
+                      LogicalName="Presentation.Screens.Resources.fe.ico" />
+  </ItemGroup>
+
 </Project>

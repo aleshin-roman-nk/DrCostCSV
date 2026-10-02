@@ -1,4 +1,4 @@
-﻿using Presentation.Screens.Main.ViewModels;
+using Presentation.Screens.Main.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +14,9 @@ public interface IMainView
 	event Action CreateDocument;
 
 	event Action DatabasePathSettingsRequested;
+	event Action CurrenciesRequested;
+	event Action CurrencyDefaultsRequested;
+	event Action DocumentsWithoutCurrencyRequested;
 
 	DateTime CurrentDate {  get; }
 

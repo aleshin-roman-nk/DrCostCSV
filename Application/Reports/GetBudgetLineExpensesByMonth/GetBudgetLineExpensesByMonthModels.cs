@@ -24,3 +24,6 @@ public sealed class BudgetTagExpenseDto
 	public required string BudgetTagName { get; init; }
 	public decimal TotalSum { get; init; }
 }
+
+public sealed record BudgetLineExpensesByMonthResult(
+	string CurrencyCode, IReadOnlyList<BudgetLineExpenseDto> BudgetLines, int ExcludedDocumentCount);

@@ -40,6 +40,8 @@
 			textBoxSeller = new TextBox();
 			dateTimePickerDate = new DateTimePicker();
 			buttonAddDocumentItem = new Button();
+			labelCurrencySummary = new Label();
+			buttonEditCurrency = new Button();
 			((System.ComponentModel.ISupportInitialize)dataGridViewDocItems).BeginInit();
 			SuspendLayout();
 			// 
@@ -108,8 +110,8 @@
 			dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
 			dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
 			dataGridViewDocItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			dataGridViewDocItems.ColumnHeadersHeight = 27;
-			dataGridViewDocItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+			dataGridViewDocItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridViewDocItems.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 			dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle2.BackColor = Color.FromArgb(234, 234, 224);
 			dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
@@ -121,14 +123,14 @@
 			dataGridViewDocItems.DefaultCellStyle = dataGridViewCellStyle2;
 			dataGridViewDocItems.EnableHeadersVisualStyles = false;
 			dataGridViewDocItems.GridColor = Color.FromArgb(29, 198, 144);
-			dataGridViewDocItems.Location = new Point(12, 82);
+			dataGridViewDocItems.Location = new Point(12, 106);
 			dataGridViewDocItems.MultiSelect = false;
 			dataGridViewDocItems.Name = "dataGridViewDocItems";
 			dataGridViewDocItems.ReadOnly = true;
 			dataGridViewDocItems.RowHeadersVisible = false;
 			dataGridViewDocItems.RowTemplate.Height = 24;
 			dataGridViewDocItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dataGridViewDocItems.Size = new Size(879, 485);
+			dataGridViewDocItems.Size = new Size(879, 461);
 			dataGridViewDocItems.TabIndex = 3;
 			dataGridViewDocItems.KeyDown += dataGridViewDocItems_KeyDown;
 			// 
@@ -202,6 +204,27 @@
 			buttonAddDocumentItem.Text = "+";
 			buttonAddDocumentItem.UseVisualStyleBackColor = false;
 			buttonAddDocumentItem.Click += buttonAddDocumentItem_Click;
+			//
+			// labelCurrencySummary
+			//
+			labelCurrencySummary.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			labelCurrencySummary.AutoEllipsis = true;
+			labelCurrencySummary.Location = new Point(12, 53);
+			labelCurrencySummary.Name = "labelCurrencySummary";
+			labelCurrencySummary.Size = new Size(828, 42);
+			labelCurrencySummary.TabIndex = 10;
+			labelCurrencySummary.Text = "Валюта цен: Не указана; [нет значений]";
+			//
+			// buttonEditCurrency
+			//
+			buttonEditCurrency.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			buttonEditCurrency.Location = new Point(846, 53);
+			buttonEditCurrency.Name = "buttonEditCurrency";
+			buttonEditCurrency.Size = new Size(45, 28);
+			buttonEditCurrency.TabIndex = 11;
+			buttonEditCurrency.Text = "[...]";
+			buttonEditCurrency.UseVisualStyleBackColor = true;
+			buttonEditCurrency.Click += buttonEditCurrency_Click;
 			// 
 			// ExpenseDocumentEditForm
 			// 
@@ -210,6 +233,8 @@
 			BackColor = Color.FromArgb(234, 234, 224);
 			ClientSize = new Size(903, 622);
 			Controls.Add(buttonAddDocumentItem);
+			Controls.Add(labelCurrencySummary);
+			Controls.Add(buttonEditCurrency);
 			Controls.Add(dateTimePickerDate);
 			Controls.Add(textBoxSeller);
 			Controls.Add(label2);
@@ -242,5 +267,7 @@
 		private TextBox textBoxSeller;
 		private DateTimePicker dateTimePickerDate;
 		private Button buttonAddDocumentItem;
+		private Label labelCurrencySummary;
+		private Button buttonEditCurrency;
 	}
 }

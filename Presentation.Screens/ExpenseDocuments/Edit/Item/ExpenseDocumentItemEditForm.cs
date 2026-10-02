@@ -9,9 +9,15 @@ public partial class ExpenseDocumentItemEditForm : Form, IExpenseDocumentItemEdi
 	private int? itemId;
 	private IReadOnlyList<BudgetLineOptionViewModel> budgetLines = Array.Empty<BudgetLineOptionViewModel>();
 	private IReadOnlyList<BudgetTagOptionViewModel> budgetTags = Array.Empty<BudgetTagOptionViewModel>();
+
+	public event Action? SaveRequested;
+
 	public ExpenseDocumentItemEditForm()
 	{
 		InitializeComponent();
+		WindowIcon.Apply(this);
+		buttonSave.DialogResult = DialogResult.None;
+		buttonSave.Click += (_, _) => SaveRequested?.Invoke();
 		comboBoxCategory.DisplayMember = nameof(BudgetLineOptionViewModel.Name); comboBoxCategory.ValueMember = nameof(BudgetLineOptionViewModel.Id); comboBoxCategory.DropDownStyle = ComboBoxStyle.DropDown;
 		comboBoxCategory.SelectedValueChanged += (_, _) => BindTags((comboBoxCategory.SelectedItem as BudgetLineOptionViewModel)?.Id, null, string.Empty);
 		comboBoxTag.DisplayMember = nameof(BudgetTagOptionViewModel.Name); comboBoxTag.ValueMember = nameof(BudgetTagOptionViewModel.Id); comboBoxTag.DropDownStyle = ComboBoxStyle.DropDown;
@@ -31,6 +37,7 @@ public partial class ExpenseDocumentItemEditForm : Form, IExpenseDocumentItemEdi
 		return new ExpenseDocumentItemViewModel { Id = itemId, Name = textBoxItemName.Text.Trim(), Price = numericUpDownPrice.Value, Amount = numericUpDownAmount.Value, BudgetLineId = line?.Id, BudgetLineName = comboBoxCategory.Text.Trim(), BudgetTagId = tag?.Id, BudgetTagName = comboBoxTag.Text.Trim() };
 	}
 	public ModalResult ShowModal() { DialogResult = DialogResult.None; return ShowDialog() == DialogResult.OK ? ModalResult.Ok : ModalResult.Cancel; }
+	public void CloseWithOk() { DialogResult = DialogResult.OK; Close(); }
 	private void BindTags(int? lineId, int? tagId, string tagName)
 	{
 		var values = lineId.HasValue ? budgetTags.Where(x => x.BudgetLineId == lineId).ToList() : new List<BudgetTagOptionViewModel>(); comboBoxTag.DataSource = values;

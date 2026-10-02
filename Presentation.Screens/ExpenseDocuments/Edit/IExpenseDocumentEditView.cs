@@ -13,14 +13,17 @@ public interface IExpenseDocumentEditView
 	public event Action<ExpenseDocumentItemViewModel>? EditDocumentItemRequested;
 	public event Action<ExpenseDocumentItemViewModel>? DeleteDocumentItemRequested;
 	public event Action? NewDocumentItemRequested;
+	event Action? EditCurrencyRequested;
 
 
 	ModalResult ShowModal();
 	void CloseWithOk();
 	void RefreshItems();
 	void SetDocument(ExpenseDocumentViewModel document);
+	void SetCurrencySummary(string summary);
 	void SetItemsList(IReadOnlyList<ExpenseDocumentItemViewModel> rows);
-	void ApplyInputToDocument();
+	void SetDocumentDate(DateTime date);
+	bool ApplyInputToDocument();
 
 	void ShowError(string message);
 }

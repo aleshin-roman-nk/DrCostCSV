@@ -1,4 +1,4 @@
-﻿namespace Presentation.Screens.Main
+namespace Presentation.Screens.Main
 {
 	partial class MainForm
 	{
@@ -44,6 +44,10 @@
 			comboBoxYear = new ToolStripComboBox();
 			settingsToolStripMenuItem = new ToolStripMenuItem();
 			databasePathToolStripMenuItem = new ToolStripMenuItem();
+			currenciesToolStripMenuItem = new ToolStripMenuItem();
+			currencyDefaultsToolStripMenuItem = new ToolStripMenuItem();
+			toolsToolStripMenuItem = new ToolStripMenuItem();
+			documentsWithoutCurrencyToolStripMenuItem = new ToolStripMenuItem();
 			buttonQuickDocumentAdd = new ToolStripButton();
 			((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
 			panel2.SuspendLayout();
@@ -69,9 +73,9 @@
 			dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
 			dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
 			dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			dataGridView1.ColumnHeadersHeight = 27;
-			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ColumnDate, ColumnSum });
+			dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 			dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle4.BackColor = Color.FromArgb(234, 234, 224);
 			dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
@@ -112,7 +116,7 @@
 			dataGridViewCellStyle3.Format = "N2";
 			dataGridViewCellStyle3.NullValue = null;
 			ColumnSum.DefaultCellStyle = dataGridViewCellStyle3;
-			ColumnSum.HeaderText = "Sum";
+			ColumnSum.HeaderText = "Сумма";
 			ColumnSum.Name = "ColumnSum";
 			ColumnSum.ReadOnly = true;
 			ColumnSum.Width = 300;
@@ -164,7 +168,7 @@
 			// menuStrip1
 			//
 			menuStrip1.BackColor = Color.FromArgb(234, 234, 224);
-			menuStrip1.Items.AddRange(new ToolStripItem[] { labelPeriod, comboBoxMonth, comboBoxYear, settingsToolStripMenuItem, buttonQuickDocumentAdd });
+			menuStrip1.Items.AddRange(new ToolStripItem[] { labelPeriod, comboBoxMonth, comboBoxYear, settingsToolStripMenuItem, toolsToolStripMenuItem, buttonQuickDocumentAdd });
 			menuStrip1.Location = new Point(0, 0);
 			menuStrip1.Name = "menuStrip1";
 			menuStrip1.Size = new Size(1124, 24);
@@ -192,15 +196,39 @@
 			//
 			// settingsToolStripMenuItem
 			//
-			settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { databasePathToolStripMenuItem });
+			settingsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { currenciesToolStripMenuItem, currencyDefaultsToolStripMenuItem, databasePathToolStripMenuItem });
 			settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			settingsToolStripMenuItem.Text = "Настройки";
+			//
+			// currenciesToolStripMenuItem
+			//
+			currenciesToolStripMenuItem.Name = "currenciesToolStripMenuItem";
+			currenciesToolStripMenuItem.Text = "Валюты...";
+			currenciesToolStripMenuItem.Click += currenciesToolStripMenuItem_Click;
+			//
+			// currencyDefaultsToolStripMenuItem
+			//
+			currencyDefaultsToolStripMenuItem.Name = "currencyDefaultsToolStripMenuItem";
+			currencyDefaultsToolStripMenuItem.Text = "Настройка валют...";
+			currencyDefaultsToolStripMenuItem.Click += currencyDefaultsToolStripMenuItem_Click;
 			//
 			// databasePathToolStripMenuItem
 			//
 			databasePathToolStripMenuItem.Name = "databasePathToolStripMenuItem";
 			databasePathToolStripMenuItem.Text = "Папка базы данных...";
 			databasePathToolStripMenuItem.Click += databasePathToolStripMenuItem_Click;
+			// toolsToolStripMenuItem
+			//
+			toolsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { documentsWithoutCurrencyToolStripMenuItem });
+			toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+			toolsToolStripMenuItem.Text = "Инструменты";
+			//
+			// documentsWithoutCurrencyToolStripMenuItem
+			//
+			documentsWithoutCurrencyToolStripMenuItem.Name = "documentsWithoutCurrencyToolStripMenuItem";
+			documentsWithoutCurrencyToolStripMenuItem.Text = "Документы без валюты...";
+			documentsWithoutCurrencyToolStripMenuItem.Click += documentsWithoutCurrencyToolStripMenuItem_Click;
+			//
 			// buttonQuickDocumentAdd
 			//
 			buttonQuickDocumentAdd.Alignment = ToolStripItemAlignment.Right;
@@ -246,6 +274,10 @@
 		private ToolStripComboBox comboBoxYear;
 		private ToolStripMenuItem settingsToolStripMenuItem;
 		private ToolStripMenuItem databasePathToolStripMenuItem;
+		private ToolStripMenuItem currenciesToolStripMenuItem;
+		private ToolStripMenuItem currencyDefaultsToolStripMenuItem;
+		private ToolStripMenuItem toolsToolStripMenuItem;
+		private ToolStripMenuItem documentsWithoutCurrencyToolStripMenuItem;
 		private ToolStripButton buttonQuickDocumentAdd;
 	}
 }

@@ -45,6 +45,14 @@ If existing code conflicts with documented architecture:
 
 Do not redesign project architecture as part of an unrelated task.
 
+## Dependency injection ownership
+
+Before adding or moving a DI registration, identify the project that owns the concrete implementation and follow `docs/architecture/ARCHITECTURE.md`.
+
+Do not register a service outside its owning project. Use cases and Application services are registered by Application; repository, reader, persistence, and external-adapter implementations are registered by Infrastructure; presentation implementations are registered by Presentation. `Startup.WinForms` composes these project-level registrations and must not duplicate them.
+
+For an interface-to-implementation mapping, ownership is determined by the implementation. If ownership is unclear, stop and record the architectural question instead of choosing a convenient registration location.
+
 ## Change discipline
 
 Make the smallest change required to complete the task.

@@ -10,4 +10,5 @@ public class DocumentTitleDto
 	public DateTime Date {  get; set; }
 	public string? Seller {  get; set; }
 	public decimal Sum {  get; set; }
+	public string? CurrencyCode { get; set; }
 }

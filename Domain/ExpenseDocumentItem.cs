@@ -18,9 +18,9 @@ public sealed class ExpenseDocumentItem
 
 	public decimal Amount { get; private set; }
 
-	public int? BudgetLineId { get; private set; }
+	public int BudgetLineId { get; private set; }
 
-	public BudgetLine? BudgetLine { get; private set; }
+	public BudgetLine BudgetLine { get; private set; } = null!;
 
 	public int? BudgetTagId { get; private set; }
 
@@ -38,11 +38,13 @@ public sealed class ExpenseDocumentItem
 		string name,
 		decimal price,
 		decimal amount,
-		int? budgetLineId,
+		int budgetLineId,
 		int? budgetTagId)
 	{
+		Validate(name, price, amount, budgetLineId, budgetTagId);
+
 		ExpenseDocument = expenseDocument;
-		Name = name;
+		Name = name.Trim();
 		Price = price;
 		Amount = amount;
 		BudgetLineId = budgetLineId;
@@ -53,28 +55,43 @@ public sealed class ExpenseDocumentItem
 	string name,
 	decimal price,
 	decimal amount,
-	int? budgetLineId,
+	int budgetLineId,
 	int? budgetTagId)
 	{
-		if (string.IsNullOrWhiteSpace(name))
-			throw new ArgumentException(
-				"Item name is required.",
-				nameof(name));
-
-		if (price < 0)
-			throw new ArgumentOutOfRangeException(
-				nameof(price),
-				"Price cannot be negative.");
-
-		if (amount <= 0)
-			throw new ArgumentOutOfRangeException(
-				nameof(amount),
-				"Amount must be greater than zero.");
+		Validate(name, price, amount, budgetLineId, budgetTagId);
 
 		Name = name.Trim();
 		Price = price;
 		Amount = amount;
 		BudgetLineId = budgetLineId;
 		BudgetTagId = budgetTagId;
+	}
+
+	private static void Validate(
+		string name,
+		decimal price,
+		decimal amount,
+		int budgetLineId,
+		int? budgetTagId)
+	{
+		if (string.IsNullOrWhiteSpace(name))
+			throw new ArgumentException(
+				"Item name is required.",
+				nameof(name));
+
+		if (amount <= 0)
+			throw new ArgumentOutOfRangeException(
+				nameof(amount),
+				"Amount must be greater than zero.");
+
+		if (budgetLineId <= 0)
+			throw new ArgumentOutOfRangeException(
+				nameof(budgetLineId),
+				"Budget line is required.");
+
+		if (budgetTagId <= 0)
+			throw new ArgumentOutOfRangeException(
+				nameof(budgetTagId),
+				"Budget tag identifier must be greater than zero when specified.");
 	}
 }

@@ -1,5 +1,6 @@
-﻿using Presentation.Screens.Main;
+using Presentation.Screens.Main;
 using Presentation.Screens.Main.ViewModels;
+using Presentation.Screens.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,15 +30,29 @@ public partial class MainForm : Form, IMainView
 	public MainForm()
 	{
 		InitializeComponent();
+		WindowIcon.Apply(this);
 
 		InitializePeriodSelector();
 		dataGridView1.DataSource = bs;
+		dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
 	}
 
 	public event Action<DateTime>? OpenDocumentList;
 	public event Action<DateTime>? DateChanged;
 	public event Action? CreateDocument;
 	public event Action? DatabasePathSettingsRequested;
+	public event Action? CurrenciesRequested;
+	public event Action? CurrencyDefaultsRequested;
+	public event Action? DocumentsWithoutCurrencyRequested;
+
+	private void currencyDefaultsToolStripMenuItem_Click(object? sender, EventArgs e) =>
+		CurrencyDefaultsRequested?.Invoke();
+
+	private void documentsWithoutCurrencyToolStripMenuItem_Click(object? sender, EventArgs e) =>
+		DocumentsWithoutCurrencyRequested?.Invoke();
+
+	private void currenciesToolStripMenuItem_Click(object? sender, EventArgs e) =>
+		CurrenciesRequested?.Invoke();
 
 	public void SetDailyExpenses(IReadOnlyList<DailyExpenseRowViewModel> list)
 	{
@@ -64,6 +79,13 @@ public partial class MainForm : Form, IMainView
 		}
 
 		richTextBoxReport.Select(0, 0);
+	}
+
+	private void dataGridView1_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+	{
+		if (e.RowIndex >= 0 &&
+			dataGridView1.Rows[e.RowIndex].DataBoundItem is DailyExpenseRowViewModel row)
+			OpenDocumentList?.Invoke(row.Date);
 	}
 
 	private void dataGridView1_KeyDown(object sender, KeyEventArgs e)

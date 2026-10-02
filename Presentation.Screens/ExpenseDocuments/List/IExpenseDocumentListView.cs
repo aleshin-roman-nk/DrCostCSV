@@ -13,6 +13,7 @@ public interface IExpenseDocumentListView
 	void ShowModal();
 
 	void SetDocumentTitles(IReadOnlyList<ExpenseDocumentTitleViewModel> rows);
+	void SetDailyTotal(string total);
 	void SetDate(DateTime dt);
 
 	void ShowError(string msg);

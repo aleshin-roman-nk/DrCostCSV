@@ -8,6 +8,6 @@ namespace Presentation.Screens.ExpenseDocuments.Edit.JsonImport
 {
 	public interface IExpenseDocumentJsonImportFlow
 	{
-		ScreenResult<IReadOnlyList<ExpenseDocumentItemFromJson>> GetList();
+		ScreenResult<ExpenseDocumentFromJson> GetDocument();
 	}
 }

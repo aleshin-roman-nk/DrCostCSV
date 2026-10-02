@@ -43,7 +43,8 @@ public sealed class MainActions
 				.Select(x => new DailyExpenseRowViewModel
 				{
 					Date = x.Date,
-					TotalSum = x.TotalSum
+					TotalSum = x.TotalSum,
+					CurrencyCode = result.Value.CurrencyCode
 				})
 				.ToList();
 
@@ -60,20 +61,23 @@ public sealed class MainActions
 			if (!result.IsSuccess)
 				return ActionResult<string>.Failure(result.Error?.Message ?? "Не удалось построить отчёт.");
 
-			return ActionResult<string>.Success(FormatReport(result.Value ?? []));
+			if (result.Value is null)
+				return ActionResult<string>.Failure("Не удалось построить отчёт.");
+			return ActionResult<string>.Success(FormatReport(result.Value));
 		});
 	}
 
-	private static string FormatReport(IReadOnlyList<BudgetLineExpenseDto> budgetLines)
+	private static string FormatReport(BudgetLineExpensesByMonthResult result)
 	{
 		var report = new StringBuilder();
+		var budgetLines = result.BudgetLines;
 		var totalSum = budgetLines.Sum(budgetLine => budgetLine.TotalSum);
-		report.AppendLine($"ОБЩИЕ РАСХОДЫ ЗА МЕСЯЦ : {totalSum:N2} ₽");
+		report.AppendLine($"ОБЩИЕ РАСХОДЫ ЗА МЕСЯЦ : {totalSum:N2} {result.CurrencyCode}");
 		report.AppendLine();
 
 		foreach (var budgetLine in budgetLines)
 		{
-			report.AppendLine($"{budgetLine.BudgetLineName} : {budgetLine.TotalSum:N2} ₽");
+			report.AppendLine($"{budgetLine.BudgetLineName} : {budgetLine.TotalSum:N2} {result.CurrencyCode}");
 
 			if (budgetLine.Tags.Count > 0)
 			{
@@ -88,15 +92,18 @@ public sealed class MainActions
 				{
 					var tag = budgetLine.Tags[index];
 					var branch = index == childCount - 1 ? "└──" : "├──";
-					report.AppendLine($" {branch} {tag.BudgetTagName.PadRight(tagNameWidth)} : {tag.TotalSum:N2} ₽");
+					report.AppendLine($" {branch} {tag.BudgetTagName.PadRight(tagNameWidth)} : {tag.TotalSum:N2} {result.CurrencyCode}");
 				}
 
 				if (hasUntaggedItems)
-					report.AppendLine($" └── {"[Остальное]".PadRight(tagNameWidth)} : {untaggedSum:N2} ₽");
+					report.AppendLine($" └── {"[Остальное]".PadRight(tagNameWidth)} : {untaggedSum:N2} {result.CurrencyCode}");
 			}
 
 			report.AppendLine();
 		}
+
+		if (result.ExcludedDocumentCount > 0)
+			report.AppendLine($"Не учтено документов без пересчета: {result.ExcludedDocumentCount}.");
 
 		return report.ToString().TrimEnd();
 	}

@@ -41,6 +41,7 @@
 			dataGridView1 = new DataGridView();
 			Date = new DataGridViewTextBoxColumn();
 			Column3Sum = new DataGridViewTextBoxColumn();
+			ColumnCurrencyCode = new DataGridViewTextBoxColumn();
 			Seller = new DataGridViewTextBoxColumn();
 			panel1.SuspendLayout();
 			panel2.SuspendLayout();
@@ -136,9 +137,9 @@
 			dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(24, 38, 36);
 			dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
 			dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			dataGridView1.ColumnHeadersHeight = 27;
-			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-			dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, Column3Sum, Seller });
+			dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Date, Column3Sum, ColumnCurrencyCode, Seller });
+			dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 			dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
 			dataGridViewCellStyle3.BackColor = Color.FromArgb(234, 234, 224);
 			dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F);
@@ -183,6 +184,14 @@
 			Column3Sum.ReadOnly = true;
 			Column3Sum.Width = 250;
 			// 
+			// ColumnCurrencyCode
+			//
+			ColumnCurrencyCode.DataPropertyName = "CurrencyCode";
+			ColumnCurrencyCode.HeaderText = "Код валюты";
+			ColumnCurrencyCode.Name = "ColumnCurrencyCode";
+			ColumnCurrencyCode.ReadOnly = true;
+			ColumnCurrencyCode.Width = 150;
+			//
 			// Seller
 			// 
 			Seller.DataPropertyName = "Seller";
@@ -221,6 +230,7 @@
 		private Label labelDate;
 		private DataGridViewTextBoxColumn Date;
 		private DataGridViewTextBoxColumn Column3Sum;
+		private DataGridViewTextBoxColumn ColumnCurrencyCode;
 		private DataGridViewTextBoxColumn Seller;
 	}
 }
